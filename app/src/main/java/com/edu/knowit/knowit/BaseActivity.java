@@ -1,6 +1,5 @@
 package com.edu.knowit.knowit;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,15 +10,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.edu.knowit.knowit.PageAdapters.BasePageAdapter;
-import com.edu.knowit.knowit.PageAdapters.UserLoginPageAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BaseActivity extends AppCompatActivity implements  View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
 
-    private Intent intent;
+    private static final String TAG = "Base Activity";
     private NavigationView navigationView=null;
     private ActionBarDrawerToggle menuToggle;
     private DrawerLayout menuDrawerLayout;
@@ -37,6 +37,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
+
         //Obtain the toolbar support
         menuDrawerLayout = (DrawerLayout) findViewById(R.id.homeMenu);
         //Set Listener
@@ -91,6 +92,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
 
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -107,11 +109,18 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
 
-
+            case R.id.log_out_item:
+                Log.d(TAG,"Sign Out Click");
+                signOut();
+            default:
+                Log.d(TAG,"Nav Click");
         }
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.homeMenu);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+    }
 }

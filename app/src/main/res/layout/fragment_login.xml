@@ -57,7 +57,8 @@
             android:layout_below="@id/credentialPanel"
             android:paddingTop="20dp"
             android:orientation="vertical"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:id="@+id/linearLayout">
 
             <Button
                 android:id="@+id/loginBtn"
@@ -67,21 +68,15 @@
                 android:textColor="#ffffff"
                 android:text="Login"/>
 
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="20dp">-->
+         </LinearLayout>
 
-            <!--</View>-->
-            <!--<com.facebook.login.widget.LoginButton-->
-            <!--android:id="@+id/loginfacebookBtn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/btnfb"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:text="Login via Facebook"/>-->
-
-        </LinearLayout>
-
+        <ProgressBar
+            android:id="@+id/loginProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
 
     </RelativeLayout>

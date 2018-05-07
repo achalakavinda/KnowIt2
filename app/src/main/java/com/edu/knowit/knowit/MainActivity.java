@@ -1,29 +1,47 @@
 package com.edu.knowit.knowit;
-import android.content.Intent;
 import com.edu.knowit.knowit.PageAdapters.UserLoginPageAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.widget.TableLayout;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
-    //check for on start session creating and use existing data
-    @Override
-    protected void onStart() {
+    private static final String TAG = "Main Activity";
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+      @Override
+    protected void onStart()
+    {
         super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
     }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        if(mAuthStateListener != null)
+        {
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
+        setUpFirebaseAuth();
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -54,5 +72,40 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    private void setUpFirebaseAuth()
+    {
+
+        Log.d(TAG,"setUpFirebaseAuth: setting up fireabase auth");
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                checkCurrentUser(user);
+                if(user != null){
+                    Log.d(TAG,"onAuthStateChanged: signed_In"+user.getUid());
+                    Intent intent = new Intent(getApplication().getApplicationContext(),BaseActivity.class);
+                    startActivity(intent);
+                }else{
+                    Log.d(TAG,"onAuthStateChanged: signed_Out");
+                }
+            }
+        };
+    }
+
+    private void checkCurrentUser(FirebaseUser user){
+        Log.d(TAG,"checkCurrentUser");
+        if(user != null){
+            Log.d(TAG,"checkCurrentUser: signed_In");
+        }else
+        {
+            Log.d(TAG,"checkCurrentUser: not signed_Out");
+        }
+    }
+
+
 
 }

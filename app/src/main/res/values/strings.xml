@@ -6,4 +6,20 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string name="dialogfragment">Open DialogFragment</string>
+    <string name="alertdialogfragment">Open Alert DialogFragment</string>
+
+
+
+    <!-- register view -->
+    <string name="rg_fName">First Name</string>
+    <string name="rg_lName">Last Name</string>
+    <string name="rg_MobileNumber">Mobile Number</string>
+    <string name="rg_email">Email Address</string>
+    <string name="rg_Password">Password</string>
+    <string name="rg_ComfirmPassword">Comfirm Password</string>
+
+    <!-- Firebase database fields -->
+    <string name="DB_UserDetails">user_details_tab</string>
 </resources>
