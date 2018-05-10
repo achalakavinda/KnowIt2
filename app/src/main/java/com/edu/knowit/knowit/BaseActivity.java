@@ -1,5 +1,7 @@
 package com.edu.knowit.knowit;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -34,6 +36,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
 
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onStart() {
         super.onStart();
@@ -49,7 +52,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
         getSupportActionBar().setHomeButtonEnabled(true);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
-        toolbar.setBackgroundColor(getColor(R.color.colorAccent));
+//        toolbar.setBackgroundColor(getColor(R.color.colorAccent));
         menuDrawerLayout.addDrawerListener(menuToggle);
         menuToggle.syncState();
 

@@ -1,12 +1,16 @@
 package com.edu.knowit.knowit.ListAdapters;
 
 import android.content.Context;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.knowit.knowit.Models.HomeItemModel;
@@ -20,14 +24,23 @@ import java.util.ArrayList;
 
 public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View.OnClickListener{
 
+     String TAG="";
+
     private ArrayList<HomeItemModel> dataSet;//create array object list
     Context mContext;
 
     // View lookup cache
     private static class ViewHolder {
-        TextView txtName;
-        TextView txtSubmission;
-        TextView txtRecievedDate;
+        HomeItemModel item;
+        TextView txtId;
+        TextView txtAuthor;
+        TextView txtDate;
+        TextView txtTitle;
+        ImageView imgImage;
+        TextView txtDesc;
+        Button btnLike;
+        Button btnComment;
+        Button btnDislike;
     }
 
     public HomeListAdapter(ArrayList<HomeItemModel> data, Context context) {
@@ -38,19 +51,22 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
     }
 
     @Override
-    public void onClick(View v) {//onclick  event
-
+    public void onClick(View v) {
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         HomeItemModel dataModel=(HomeItemModel) object;
-
-//        switch (v.getId())
-//        {
-//            case R.id.item_info:
-//                Snackbar.make(v, "Release date " +dataModel.getDescription(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
-//                break;
-//        }
+        switch (v.getId())
+        {
+            case R.id.like:
+                System.out.println("Like button call"+dataModel.getAuthor());
+                break;
+            case R.id.comment:
+                System.out.println("Comment button call"+dataModel.getAuthor());
+                break;
+            case R.id.dislike:
+                System.out.println("Dislike button call"+dataModel.getAuthor());
+                break;
+        }
     }
 
     private int lastPosition = -1;
@@ -70,7 +86,15 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_home_item, parent, false);
 
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.txtId = (TextView) convertView.findViewById(R.id.id);
+            viewHolder.txtAuthor = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.txtDate = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.subject);
+            viewHolder.imgImage = (ImageView) convertView.findViewById(R.id.image);
+            viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.btnLike= (Button) convertView.findViewById(R.id.like);
+            viewHolder.btnComment= (Button) convertView.findViewById(R.id.comment);
+            viewHolder.btnDislike= (Button) convertView.findViewById(R.id.dislike);
 
             result=convertView;
 
@@ -84,7 +108,20 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.txtName.setText("Name : "+dataModel.getAmount());
+        viewHolder.txtId.setText(dataModel.getId());
+        viewHolder.txtAuthor.setText(dataModel.getAuthor());
+        viewHolder.txtDate.setText(dataModel.getDate());
+        viewHolder.txtTitle.setText(dataModel.getTitle());
+        viewHolder.txtDesc.setText(dataModel.getDescription());
+
+        viewHolder.btnDislike.setTag(position);
+        viewHolder.btnLike.setTag(position);
+        viewHolder.btnComment.setTag(position);
+
+        viewHolder.btnDislike.setOnClickListener(this);
+        viewHolder.btnLike.setOnClickListener(this);
+        viewHolder.btnComment.setOnClickListener(this);
+
         // Return the completed view to render on screen
         return convertView;
     }

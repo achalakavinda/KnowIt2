@@ -21,6 +21,8 @@
     <color name="colorYellowBtn">#fcb012</color>
     <color name="colorLightBlueBtn">#2574c2</color>
 
+    <!-- Text Color -->
+    <color name="colorTextPrimary">#BDC3C7</color>
     <!-- Card -->
 
     <color name="transparent">#00000000</color>

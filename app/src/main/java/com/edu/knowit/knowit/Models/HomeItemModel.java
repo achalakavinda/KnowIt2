@@ -7,41 +7,83 @@ package com.edu.knowit.knowit.Models;
 public class HomeItemModel {
 
 
-    String id;
-    String amount;
-    String pahase_id;
-    String user_id;
-    String created_at;
+    private String id;
+    private String author;
+    private String date;
+    private String title;
+    private String image;
+    private String description;
+    private String like;
+    private String comment;
+    private String dislike;
 
 
-    public HomeItemModel(String id,String amount,String pahase_id,String user_id,String Created_at) {
+    public HomeItemModel(
+            String id,
+            String author,
+            String date,
+            String title,
+            String image,
+            String description,
+            String like,
+            String comment,
+            String dislike
+    )
+    {
 
-        this.id=id;
-        this.amount=amount;
-        this.pahase_id=pahase_id;
-        this.user_id=user_id;
-        this.created_at = Created_at;
+        this.id = id;
+        this.author = author;
+        this.date = date;
+        this.image = image;
+        this.description = description;
+        this.like = like;
+        this.comment = comment;
+        this.dislike = dislike;
 
     }
 
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getAuthor()
+    {
+        return author;
     }
 
-    public String getPahase_id() {
-        return pahase_id;
+    public String getDate()
+    {
+        return date;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getTitle()
+    {
+        return title;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getImage()
+    {
+        return image;
     }
 
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getLike()
+    {
+        return like;
+    }
+
+    public String getComment()
+    {
+        return comment;
+    }
+
+    public String getDeslike()
+    {
+        return dislike;
+    }
 }
