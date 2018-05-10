@@ -11,13 +11,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="20dp"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape"
+                android:background="@color/colorFontPanelAlpha"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -32,54 +31,54 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="20dp"
-                        android:text="@string/rg_fName"/>
+                        android:text="@string/rglabelfname"/>
 
                     <EditText
                         android:id="@+id/rgname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
-                        android:hint="tap to enter first name"/>
+                        android:hint="@string/rgplaceholderfname"/>
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="20dp"
-                        android:text="@string/rg_MobileNumber"/>
+                        android:text="@string/rglabelcontact"/>
 
                     <EditText
                         android:id="@+id/rgmobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
-                        android:hint="tap to enter mobile number"/>
+                        android:hint="@string/rgplaceholdercontact"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="20dp"
-                        android:text="@string/rg_email"/>
+                        android:text="@string/rglabelemail"/>
 
                     <EditText
                         android:id="@+id/rgemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
-                        android:hint="tap to enter email"/>
+                        android:hint="@string/rgplaceholderemail"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingTop="20dp"
-                        android:text="@string/rg_Password"/>
+                        android:text="@string/rglabelpassword"/>
 
                     <EditText
                         android:id="@+id/rgpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
-                        android:hint="tap to enter password"/>
+                        android:hint="@string/rgplaceholderpassword"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -91,10 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
-                        android:hint="tap to enter comfirm password"/>
-
-
-
+                        android:hint="@string/rgplaceholdercomfirmpassword"/>
                 </LinearLayout>
 
             </RelativeLayout>

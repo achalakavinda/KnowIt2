@@ -4,17 +4,19 @@
     android:layout_height="match_parent"
     tools:context="com.edu.knowit.knowit.LoginFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape"
+            android:background="@color/colorFontPanelAlpha"
             android:paddingTop="20dp"
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
@@ -28,24 +30,24 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Email Address"/>
+                    android:text="@string/signlabelemail"/>
 
                 <EditText
                     android:id="@+id/usernamelogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="tap to enter username"/>
+                    android:hint="@string/signplaceholderemail"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Password"/>
+                    android:text="@string/signlabelpassword"/>
 
                 <EditText
                     android:id="@+id/passwordlogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="tap to enter password"/>
+                    android:hint="@string/signplaceholderpassword"/>
 
             </LinearLayout>
 
@@ -80,5 +82,6 @@
 
 
     </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

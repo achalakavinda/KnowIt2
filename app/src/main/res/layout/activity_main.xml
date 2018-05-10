@@ -4,31 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.edu.knowit.knowit.MainActivity">
+    tools:context="com.edu.knowit.knowit.MainActivity"
+    android:background="@drawable/background">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:id="@+id/TabContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        app:title="Know It"
-        />
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
+        <ImageView
+            android:id="@+id/MainLogo"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/MainLogo"
+            app:tabGravity="center"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:minHeight="?attr/actionBarSize"/>
+    </LinearLayout>
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/tab_layout"/>
+        android:layout_below="@id/TabContainer"/>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"/>
+
 
 </RelativeLayout>

@@ -11,14 +11,26 @@
     <string name="alertdialogfragment">Open Alert DialogFragment</string>
 
 
-
-    <!-- register view -->
-    <string name="rg_fName">First Name</string>
-    <string name="rg_lName">Last Name</string>
-    <string name="rg_MobileNumber">Mobile Number</string>
-    <string name="rg_email">Email Address</string>
-    <string name="rg_Password">Password</string>
-    <string name="rg_ComfirmPassword">Comfirm Password</string>
+    <!-- login label -->
+    <string name="signlabelemail">Email</string>
+    <string name="signlabelpassword">Password</string>
+    <!-- login placeholder -->
+    <string name="signplaceholderemail">Email</string>
+    <string name="signplaceholderpassword">Password</string>
+    <!-- register label -->
+    <string name="rglabelfname">First Name</string>
+    <string name="rglabellname">Last Name</string>
+    <string name="rglabelcontact">Contact</string>
+    <string name="rglabelemail">Email</string>
+    <string name="rglabelpassword">Password</string>
+    <string name="rglabelcomfirmpassword">Comfirm Password</string>
+    <!-- register placeholder -->
+    <string name="rgplaceholderfname">First Name</string>
+    <string name="rgplaceholderlname">Last Name</string>
+    <string name="rgplaceholdercontact">Contact</string>
+    <string name="rgplaceholderemail">Email Address</string>
+    <string name="rgplaceholderpassword">Password</string>
+    <string name="rgplaceholdercomfirmpassword">Comfirm Password</string>
 
     <!-- Firebase database fields -->
     <string name="DB_UserDetails">user_details_tab</string>
