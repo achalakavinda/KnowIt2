@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/my_tips_item"
-        android:title="My Tips"/>
-
-    <item
-        android:id="@+id/promotions_item"
-        android:title="Promotions"/>
-    <item
-        android:id="@+id/payment_item"
-        android:title="Payment"/>
-    <item
-        android:id="@+id/emergency_item"
-        android:title="Emergency"/>
-    <item
-        android:id="@+id/about_us_item"
-        android:title="About Us"/>
-    <item
-        android:id="@+id/supports_item"
-        android:title="Support"/>
-    <item
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:id="@+id/log_out_item"
         android:title="Log Out"/>
-
 </menu>

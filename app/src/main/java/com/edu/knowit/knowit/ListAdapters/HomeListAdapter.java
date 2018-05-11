@@ -47,7 +47,6 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
         super(context, R.layout.row_home_item, data);
         this.dataSet = data;
         this.mContext=context;
-
     }
 
     @Override
