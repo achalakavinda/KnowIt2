@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Util.AlertDFragment;
+import com.edu.knowit.knowit.Util.DialogBox;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -160,6 +161,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private boolean isStringNull(String string){
+//        DialogBox db = new DialogBox();
+//        db.ViewDialogBox(view);
         return  true;
     }
 
