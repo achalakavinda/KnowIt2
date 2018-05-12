@@ -1,5 +1,9 @@
 package com.edu.knowit.knowit.Util;
 
+/**
+ * Created by Achala Kavinda on 5/12/2018.
+ */
+
 public class StringValidator {
 
     public boolean isEmptyString(String eVal){

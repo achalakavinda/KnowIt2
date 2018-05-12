@@ -3,11 +3,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.edu.knowit.knowit.PostFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="10dp">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/galleryImageView"
+            android:scaleType="centerCrop"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorFontPanel"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="20dp"
+                android:id="@+id/headerpanel">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category"/>
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title"/>
+                <EditText
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Description"/>
+                <EditText
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                         android:gravity="right"
+                        android:orientation="horizontal">
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Attach"/>
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Submit"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorFontPanel"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_below="@+id/headerpanel">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerDirectory"
+                android:textSize="20sp"
+                android:text="Gallery"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"/>
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:numColumns="5"
+                android:verticalSpacing="1sp"
+                android:horizontalSpacing="1sp"
+                android:stretchMode="none"
+                android:gravity="center">
+            </GridView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    </ScrollView>
 </FrameLayout>

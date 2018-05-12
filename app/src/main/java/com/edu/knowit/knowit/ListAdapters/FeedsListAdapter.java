@@ -49,11 +49,17 @@ public class FeedsListAdapter  extends ArrayAdapter<FeedsItemModel> implements V
     public void onClick(View v) {
         int position=(Integer) v.getTag();
         Object object= getItem(position);
-        HomeItemModel dataModel=(HomeItemModel) object;
+        FeedsItemModel dataModel=(FeedsItemModel) object;
         switch (v.getId())
         {
             case R.id.like:
                 System.out.println("Like button call"+dataModel.getAuthor());
+                break;
+            case R.id.comment:
+                System.out.println("Comment button call"+dataModel.getAuthor());
+                break;
+            case R.id.dislike:
+                System.out.println("Dislike button call"+dataModel.getAuthor());
                 break;
         }
     }
@@ -65,24 +71,31 @@ public class FeedsListAdapter  extends ArrayAdapter<FeedsItemModel> implements V
         // Get the data item for this position
         FeedsItemModel dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
-        FeedsListAdapter.ViewHolder viewHolder; // view lookup cache stored in tag
+        ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;
 
         if (convertView == null) {
 
-            viewHolder = new FeedsListAdapter.ViewHolder();
+            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_feed_item, parent, false);
 
-//            viewHolder.txtId = (TextView) convertView.findViewById(R.id.id);
-             viewHolder.imgImage = (ImageView) convertView.findViewById(R.id.image);
+            viewHolder.txtId = (TextView) convertView.findViewById(R.id.id);
+            viewHolder.txtAuthor = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.txtDate = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.subject);
+            viewHolder.imgImage = (ImageView) convertView.findViewById(R.id.image);
+            viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.btnLike= (Button) convertView.findViewById(R.id.like);
+            viewHolder.btnComment= (Button) convertView.findViewById(R.id.comment);
+            viewHolder.btnDislike= (Button) convertView.findViewById(R.id.dislike);
 
             result=convertView;
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (FeedsListAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
             result=convertView;
         }
 
@@ -90,9 +103,20 @@ public class FeedsListAdapter  extends ArrayAdapter<FeedsItemModel> implements V
         result.startAnimation(animation);
         lastPosition = position;
 
-//        viewHolder.txtId.setText(dataModel.getId());
+        viewHolder.txtId.setText(dataModel.getId());
+        viewHolder.txtAuthor.setText(dataModel.getAuthor());
+        viewHolder.txtDate.setText(dataModel.getDate());
+        viewHolder.txtTitle.setText(dataModel.getTitle());
+        viewHolder.txtDesc.setText(dataModel.getDescription());
 
-        viewHolder.imgImage.setVisibility(View.INVISIBLE);
+        viewHolder.btnDislike.setTag(position);
+        viewHolder.btnLike.setTag(position);
+        viewHolder.btnComment.setTag(position);
+
+        viewHolder.btnDislike.setOnClickListener(this);
+        viewHolder.btnLike.setOnClickListener(this);
+        viewHolder.btnComment.setOnClickListener(this);
+
 
 
         // Return the completed view to render on screen

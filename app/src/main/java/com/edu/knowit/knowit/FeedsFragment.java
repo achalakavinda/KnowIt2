@@ -12,9 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.edu.knowit.knowit.ListAdapters.FeedsListAdapter;
-import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.Models.FeedsItemModel;
-import com.edu.knowit.knowit.Models.HomeItemModel;
 
 import java.util.ArrayList;
 
@@ -64,6 +62,14 @@ public class FeedsFragment extends android.support.v4.app.Fragment {
         dataModels.add(new FeedsItemModel("dsdada1231","Achala Kavinda","2017-01-23","MIT","","Ok that made a bit of a difference. The image and the child LinearLayout are now similar widths but they aren't 50% of the parent. Here is a screenshot i.stack.imgur.com/UuFHp.png","","",""));
         dataModels.add(new FeedsItemModel("dsdada1231","Kavini","2017-01-12","MIT","","If I want to add third child that must be under the first one, but it is not?","","",""));
         dataModels.add(new FeedsItemModel("dsdada1231","Sithira","2017-01-12","MIT","","To create a linear layout in which each child uses the same amount of space on the screen, set the android:layout_height of each view to","","",""));
+        dataModels.add(new FeedsItemModel("dsdada1231","Achala Kavinda","2017-01-23","MIT","","Ok that made a bit of a difference. The image and the child LinearLayout are now similar widths but they aren't 50% of the parent. Here is a screenshot i.stack.imgur.com/UuFHp.png","","",""));
+        dataModels.add(new FeedsItemModel("dsdada1231","Kavini","2017-01-12","MIT","","If I want to add third child that must be under the first one, but it is not?","","",""));
+        dataModels.add(new FeedsItemModel("dsdada1231","Sithira","2017-01-12","MIT","","To create a linear layout in which each child uses the same amount of space on the screen, set the android:layout_height of each view to","","",""));
+
+        dataModels.add(new FeedsItemModel("dsdada1231","Achala Kavinda","2017-01-23","MIT","","Ok that made a bit of a difference. The image and the child LinearLayout are now similar widths but they aren't 50% of the parent. Here is a screenshot i.stack.imgur.com/UuFHp.png","","",""));
+        dataModels.add(new FeedsItemModel("dsdada1231","Kavini","2017-01-12","MIT","","If I want to add third child that must be under the first one, but it is not?","","",""));
+        dataModels.add(new FeedsItemModel("dsdada1231","Sithira","2017-01-12","MIT","","To create a linear layout in which each child uses the same amount of space on the screen, set the android:layout_height of each view to","","",""));
+
 
         adapter = new FeedsListAdapter(dataModels,getActivity().getApplicationContext());
         listView.setAdapter(adapter);

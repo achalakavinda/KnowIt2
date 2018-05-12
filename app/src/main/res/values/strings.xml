@@ -34,4 +34,5 @@
 
     <!-- Firebase database fields -->
     <string name="DB_UserDetails">user_details_tab</string>
+    <string name="dbname_user_photos">user_photos</string>
 </resources>

@@ -1,11 +1,14 @@
 package com.edu.knowit.knowit;
 import com.edu.knowit.knowit.PageAdapters.UserLoginPageAdapter;
+import com.edu.knowit.knowit.Util.Permissions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    private static final int VERIFY_PERMISSIONS_REQUEST = 1;
 
       @Override
     protected void onStart()
@@ -42,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setUpFirebaseAuth();
+        setupViewPager();
 
+    }
 
+    private void setupViewPager(){
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("Register"));
@@ -87,8 +95,18 @@ public class MainActivity extends AppCompatActivity {
                 checkCurrentUser(user);
                 if(user != null){
                     Log.d(TAG,"onAuthStateChanged: signed_In"+user.getUid());
+
+                    if(checkPermissionsArray(Permissions.PERMISSIONS)){
+
+
+                    }else{
+                        verifyPermissions(Permissions.PERMISSIONS);
+
+                    }
                     Intent intent = new Intent(getApplication().getApplicationContext(),BaseActivity.class);
                     startActivity(intent);
+                    finish();
+
                 }else{
                     Log.d(TAG,"onAuthStateChanged: signed_Out");
                 }
@@ -105,6 +123,45 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG,"checkCurrentUser: not signed_Out");
         }
     }
+
+
+    public boolean checkPermissionsArray(String[] permissions){
+        Log.d(TAG, "checkPermissionsArray: checking permissions array.");
+
+        for(int i = 0; i< permissions.length; i++){
+            String check = permissions[i];
+            if(!checkPermissions(check)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkPermissions(String permission){
+        Log.d(TAG, "checkPermissions: checking permission: " + permission);
+
+        int permissionRequest = ActivityCompat.checkSelfPermission(MainActivity.this, permission);
+
+        if(permissionRequest != PackageManager.PERMISSION_GRANTED){
+            Log.d(TAG, "checkPermissions: \n Permission was not granted for: " + permission);
+            return false;
+        }
+        else{
+            Log.d(TAG, "checkPermissions: \n Permission was granted for: " + permission);
+            return true;
+        }
+    }
+
+    public void verifyPermissions(String[] permissions){
+        Log.d(TAG, "verifyPermissions: verifying permissions.");
+
+        ActivityCompat.requestPermissions(
+                MainActivity.this,
+                permissions,
+                VERIFY_PERMISSIONS_REQUEST
+        );
+   }
+
 
 
 

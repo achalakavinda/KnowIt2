@@ -1,8 +1,10 @@
 package com.edu.knowit.knowit.Models;
 
-import javax.crypto.spec.DESKeySpec;
+/**
+ * Created by Achala Kavinda on 5/13/2018.
+ */
 
-public class SearchItemModel {
+public class ProfileItemModel {
 
     private String id;
     private String title;
@@ -13,7 +15,7 @@ public class SearchItemModel {
     private String year;
     private String date;
 
-    public SearchItemModel(String id, String title,  String description){
+    public ProfileItemModel(String id, String title,  String description){
         this.id = id;
         this.title = title;
         this.Description = description;
