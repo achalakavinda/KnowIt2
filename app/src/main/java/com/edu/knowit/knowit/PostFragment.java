@@ -1,10 +1,8 @@
 package com.edu.knowit.knowit;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.edu.knowit.knowit.Util.FilePaths;
 import com.edu.knowit.knowit.Util.FileSearch;
@@ -26,8 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends android.support.v4.app.Fragment {
+public class PostFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private static final String TAG = "PostFragment";
 
     //constants
@@ -48,6 +46,7 @@ public class PostFragment extends android.support.v4.app.Fragment {
     private ImageView galleryImage;
     private ProgressBar mProgressBar;
     private Spinner directorySpinner;
+    private Button postBtn;
 
 
 
@@ -55,7 +54,7 @@ public class PostFragment extends android.support.v4.app.Fragment {
 
     //variables
     private ArrayList<String>  directories;
-    private static final String[]paths = {"item 1", "item 2", "item 3"};
+    private static final String[] paths = {"item 1", "item 2", "item 3"};
     private String mAppend = "file:/";
     private String mSelectedImage;
 
@@ -76,6 +75,7 @@ public class PostFragment extends android.support.v4.app.Fragment {
         mFirebaseMethods = new FirebaseMethods(getActivity().getApplicationContext());
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity().getApplicationContext()).build();
         ImageLoader.getInstance().init(config);
+
     }
 
     @Override
@@ -85,6 +85,9 @@ public class PostFragment extends android.support.v4.app.Fragment {
         view = inflater.inflate(R.layout.fragment_post, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
         directorySpinner = (Spinner) view.findViewById(R.id.spinnerDirectory);
+
+        postBtn = (Button) view.findViewById(R.id.post);
+        postBtn.setOnClickListener(this);
 
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
@@ -168,8 +171,21 @@ public class PostFragment extends android.support.v4.app.Fragment {
 
     private void setUpFireBase(){
 
+    }
 
+    @Override
+    public void onClick(View view)
+    {
+        Toast.makeText(getActivity(),"Please Check Fields",Toast.LENGTH_SHORT);
 
+        switch (view.getId()){
+
+            case R.id.post:
+                Log.d(TAG,"Post Click");
+                break;
+            default:
+                break;
+        }
     }
 
 }
