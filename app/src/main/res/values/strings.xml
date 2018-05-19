@@ -19,14 +19,14 @@
     <string name="signplaceholderpassword">Password</string>
     <!-- register label -->
     <string name="rglabelfname">First Name</string>
-    <string name="rglabellname">Last Name</string>
+    <string name="rglabelsliitid">Sliit ID</string>
     <string name="rglabelcontact">Contact</string>
     <string name="rglabelemail">Email</string>
     <string name="rglabelpassword">Password</string>
     <string name="rglabelcomfirmpassword">Comfirm Password</string>
     <!-- register placeholder -->
     <string name="rgplaceholderfname">First Name</string>
-    <string name="rgplaceholderlname">Last Name</string>
+    <string name="rgplaceholdersliitid">Sliit ID</string>
     <string name="rgplaceholdercontact">Contact</string>
     <string name="rgplaceholderemail">Email Address</string>
     <string name="rgplaceholderpassword">Password</string>
@@ -35,4 +35,5 @@
     <!-- Firebase database fields -->
     <string name="DB_UserDetails">user_details_tab</string>
     <string name="dbname_user_photos">user_photos</string>
+    <string name="rglabelcommfirmpassword">Comfirm Password</string>
 </resources>

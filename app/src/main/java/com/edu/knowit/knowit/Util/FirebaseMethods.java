@@ -1,7 +1,6 @@
 package com.edu.knowit.knowit.Util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -9,7 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Models.Photo;
-import com.edu.knowit.knowit.Models.UserDetailModel;
+import com.edu.knowit.knowit.Models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +19,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.edu.knowit.knowit.R;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
@@ -76,12 +74,13 @@ public class FirebaseMethods {
         }
     }
 
+    public void userRegister(com.edu.knowit.knowit.Models.User us){
+        myRef.child("user_details").child(userID).setValue(us);
+    }
+
     public void writeNewPost() {
-
-        UserDetailModel us = new UserDetailModel("achala","kavinda","","sasa");
-//        Log.w(TAG,us.getString());
-        myRef.child("post").child(userID).push().setValue(us);
-
+//        com.edu.knowit.knowit.Models.User us = new com.edu.knowit.knowit.Models.User("achala","kavinda","","sasa");
+//        myRef.child("post").child(userID).push().setValue(us);
     }
 
     public int getImageCount(DataSnapshot dataSnapshot){
