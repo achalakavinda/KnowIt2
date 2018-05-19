@@ -108,8 +108,8 @@ public class RegisterFragment extends android.support.v4.app.Fragment implements
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
         UserDetailModel us = new UserDetailModel("achala","kavinda","",uui);
-        Log.w(TAG,us.getString());
-        databaseReference.child(getContext().getString(R.string.DB_UserDetails)).child(uui).setValue(us.getString());
+//        Log.w(TAG,us.getString());
+//        databaseReference.child(getContext().getString(R.string.DB_UserDetails)).child(uui).setValue(us.getString());
     }
 
 }

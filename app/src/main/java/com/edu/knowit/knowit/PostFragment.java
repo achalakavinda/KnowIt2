@@ -22,6 +22,9 @@ import com.edu.knowit.knowit.Util.FileSearch;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.edu.knowit.knowit.Util.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -182,6 +185,8 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
             case R.id.post:
                 Log.d(TAG,"Post Click");
+                FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
+                fm.writeNewPost();
                 break;
             default:
                 break;

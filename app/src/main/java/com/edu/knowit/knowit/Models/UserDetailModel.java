@@ -19,11 +19,59 @@ public class UserDetailModel {
         this.uuid = uuid;
     }
 
-    public String getString(){
-        return "user:{" +
-                "fname:'" +this.fname+"'"+
-                "number:'" +this.contact+"'"+
-                "}";
+    public String getFname() {
+        return fname;
     }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getSliit_id() {
+        return sliit_id;
+    }
+
+    public void setSliit_id(String sliit_id) {
+        this.sliit_id = sliit_id;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getProfile_img() {
+        return profile_img;
+    }
+
+    public void setProfile_img(String profile_img) {
+        this.profile_img = profile_img;
+    }
+
+//    public String getString(){
+//        return "user:{" +
+//                "fname:'" +this.fname+"'"+
+//                "number:'" +this.contact+"'"+
+//                "}";
+//    }
 
 }

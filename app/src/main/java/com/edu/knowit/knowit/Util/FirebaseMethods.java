@@ -9,12 +9,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Models.Photo;
+import com.edu.knowit.knowit.Models.UserDetailModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -32,6 +34,23 @@ import java.util.TimeZone;
 
 public class FirebaseMethods {
     private static final String TAG = "FirebaseMethods";
+
+    @IgnoreExtraProperties
+    public class User {
+
+        public String username;
+        public String email;
+
+        public User() {
+            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        }
+
+        public User(String username, String email) {
+            this.username = username;
+            this.email = email;
+        }
+
+    }
 
     //firebase
     private FirebaseAuth mAuth;
@@ -55,6 +74,14 @@ public class FirebaseMethods {
         if(mAuth.getCurrentUser() != null){
             userID = mAuth.getCurrentUser().getUid();
         }
+    }
+
+    public void writeNewPost() {
+
+        UserDetailModel us = new UserDetailModel("achala","kavinda","","sasa");
+//        Log.w(TAG,us.getString());
+        myRef.child("post").child(userID).push().setValue(us);
+
     }
 
     public int getImageCount(DataSnapshot dataSnapshot){

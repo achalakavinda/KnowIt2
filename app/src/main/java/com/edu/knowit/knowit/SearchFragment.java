@@ -1,7 +1,6 @@
 package com.edu.knowit.knowit;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,16 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
-import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Models.SearchItemModel;
 
 import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass
  */
 public class SearchFragment extends android.support.v4.app.Fragment {
 
@@ -28,7 +25,6 @@ public class SearchFragment extends android.support.v4.app.Fragment {
     ListView listView;
     private View view;
     private SearchListAdapter adapter;
-    private Intent intent;
     private CoordinatorLayout co_ordinated_layout_main_payment;
     private ProgressBar spinner;
 
@@ -63,21 +59,6 @@ public class SearchFragment extends android.support.v4.app.Fragment {
         dataModels.add(new SearchItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
         dataModels.add(new SearchItemModel("id","DCCN-I","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
         dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-III","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CPMAD","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CDAP","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-I","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-III","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CPMAD","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CDAP","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-I","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-III","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CPMAD","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","CDAP","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
 
         adapter = new SearchListAdapter(dataModels,getActivity().getApplicationContext());
         listView.setAdapter(adapter);
