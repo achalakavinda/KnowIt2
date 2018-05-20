@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -18,6 +19,7 @@ import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Models.Post;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends android.support.v4.app.Fragment {
+public class HomeFragment extends android.support.v4.app.Fragment{
     private String TAG ="HomeFragment";
     ArrayList<HomeItemModel> dataModels;
     ListView listView;
@@ -38,6 +40,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     private Intent intent;
     private CoordinatorLayout co_ordinated_layout_main_payment;
     private ProgressBar spinner;
+    private Bundle bundle ;
 
 
     public HomeFragment() {
@@ -59,9 +62,31 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+               dataModels.get(position);
+
+                intent = new Intent(view.getContext(), PostViewActivity.class);
+
+                bundle = new Bundle();//create bundle object to pass values
+
+                bundle.putString("id",  dataModels.get(position).getId());
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -75,15 +100,20 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     public void addPostListner(){
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
         DatabaseReference ref = fm.getMyRef();
-        ref.child("/post").addValueEventListener(new ValueEventListener() {
+
+
+        ref.child("/post").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataModels= new ArrayList<>();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     dataModels.add(postSnapshot.getValue(HomeItemModel.class));
-                    adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
                 }
-                listView.setAdapter(adapter);
+                if(dataModels.size()!=0){
+                    adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
+                    listView.setAdapter(adapter);
+                }
+
             }
 
             @Override

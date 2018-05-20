@@ -30,18 +30,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
-
-
-
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //Obtain the toolbar support
+//Obtain the toolbar support
         menuDrawerLayout = (DrawerLayout) findViewById(R.id.homeMenu);
         //Set Listener
         menuToggle = new ActionBarDrawerToggle(this,menuDrawerLayout,R.string.open,R.string.close);
@@ -60,20 +49,16 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
         navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_assignment_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home_black_24dp));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add_box_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_person_outline_black_24dp));
-
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final BasePageAdapter adapter = new BasePageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(2);
+        viewPager.setCurrentItem(1);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -92,6 +77,17 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
             }
 
         });
+
+
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
 
     }
 

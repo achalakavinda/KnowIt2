@@ -30,15 +30,11 @@ public class BasePageAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new FeedsFragment();
-            case 1:
                 return new SearchFragment();
-            case 2:
+            case 1:
                 return new HomeFragment();
-            case 3:
+            case 2:
                 return new PostFragment();
-            case 4:
-                return new ProfileFragment();
             default:
                 return null;
         }

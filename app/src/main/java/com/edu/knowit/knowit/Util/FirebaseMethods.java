@@ -60,6 +60,11 @@ public class FirebaseMethods {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+
+    public StorageReference getmStorageReference() {
+        return mStorageReference;
+    }
+
     private StorageReference mStorageReference;
 
     public String getUserID() {

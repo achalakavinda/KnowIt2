@@ -12,9 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.edu.knowit.knowit.ListAdapters.ProfileListAdapter;
-import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
 import com.edu.knowit.knowit.Models.ProfileItemModel;
-import com.edu.knowit.knowit.Models.SearchItemModel;
 
 import java.util.ArrayList;
 
@@ -59,19 +57,6 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
         dataModels= new ArrayList<>();
 
-
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
         dataModels.add(new ProfileItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
 
         adapter = new ProfileListAdapter(dataModels,getActivity().getApplicationContext());

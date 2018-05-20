@@ -11,10 +11,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,16 +33,13 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
 
     // View lookup cache
     private static class ViewHolder {
-        HomeItemModel item;
         TextView txtId;
         TextView txtAuthor;
         TextView txtDate;
         TextView txtTitle;
         ImageView imgImage;
         TextView txtDesc;
-        Button btnLike;
-        Button btnComment;
-        Button btnDislike;
+        LinearLayout imgLayout;
     }
 
     public HomeListAdapter(ArrayList<HomeItemModel> data, Context context) {
@@ -54,18 +53,7 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         HomeItemModel dataModel=(HomeItemModel) object;
-        switch (v.getId())
-        {
-            case R.id.like:
-                System.out.println("Like button call"+dataModel.getAuthor());
-                break;
-            case R.id.comment:
-                System.out.println("Comment button call"+dataModel.getAuthor());
-                break;
-            case R.id.dislike:
-                System.out.println("Dislike button call"+dataModel.getAuthor());
-                break;
-        }
+        System.out.println("call");
     }
 
     private int lastPosition = -1;
@@ -91,9 +79,7 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.subject);
             viewHolder.imgImage = (ImageView) convertView.findViewById(R.id.image);
             viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
-            viewHolder.btnLike= (Button) convertView.findViewById(R.id.like);
-            viewHolder.btnComment= (Button) convertView.findViewById(R.id.comment);
-            viewHolder.btnDislike= (Button) convertView.findViewById(R.id.dislike);
+            viewHolder.imgLayout = (LinearLayout) convertView.findViewById(R.id.imgLayout);
 
             result=convertView;
 
@@ -113,15 +99,13 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtDesc.setText(dataModel.getDescription());
 
-        viewHolder.btnDislike.setTag(position);
-        viewHolder.btnLike.setTag(position);
-        viewHolder.btnComment.setTag(position);
+        if(dataModel.getImage()!=null && !dataModel.getImage().isEmpty()){
+            viewHolder.imgLayout.setVisibility(View.VISIBLE);
+            Picasso.get().load(dataModel.getImage()).into(viewHolder.imgImage);
+        }else{
+            viewHolder.imgLayout.setVisibility(View.GONE);
+        }
 
-        viewHolder.btnDislike.setOnClickListener(this);
-        viewHolder.btnLike.setOnClickListener(this);
-        viewHolder.btnComment.setOnClickListener(this);
-
-        // Return the completed view to render on screen
         return convertView;
     }
 }

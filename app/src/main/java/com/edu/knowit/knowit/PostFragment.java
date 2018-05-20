@@ -1,9 +1,11 @@
 package com.edu.knowit.knowit;
 
 
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -37,9 +39,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -51,7 +57,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     private String error = "";
 
     //constants
-    private static final int NUM_GRID_COLUMNS = 2;
+    private static final int NUM_GRID_COLUMNS = 4;
 
     //widgets
     private View view;
@@ -60,15 +66,19 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     private ProgressBar mProgressBar;
     private Spinner directorySpinner;
     private Button postBtn;
+    private Button attachBtn;
 
     //view variables
     private Spinner spinner;
     private EditText editTextTitle;
     private EditText editTextDesc;
+    private EditText editTextPath;
 
 
     // firebase image url path
     private String url;
+    private String postID;
+    private Boolean uploadImage;
 
     //data models
     public User user = null;
@@ -76,7 +86,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
     //variables
     private ArrayList<String>  directories;
-    private static final String[] paths = {"item 1", "item 2", "item 3"};
+    private static final String[] paths = {"DCCN", "PS", "MIT"};
     private String mAppend = "file:/";
     private String mSelectedImage;
 
@@ -109,12 +119,16 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         directorySpinner = (Spinner) view.findViewById(R.id.spinnerDirectory);
 
         postBtn = (Button) view.findViewById(R.id.post);
+        attachBtn = (Button) view.findViewById(R.id.attach);
+
         postBtn.setOnClickListener(this);
+        attachBtn.setOnClickListener(this);
 
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
         editTextTitle = (EditText) view.findViewById(R.id.title);
         editTextDesc = (EditText) view.findViewById(R.id.description);
+        editTextPath = (EditText) view.findViewById(R.id.path);
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,paths);
 
@@ -127,7 +141,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     @Override
     public void onStart() {
         super.onStart();
-        Init();
+//        Init();
     }
 
     private void Init(){
@@ -188,6 +202,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemClick: selected an image: " + imgURLs.get(position));
                 mSelectedImage = imgURLs.get(position);
+                editTextPath.setText(mSelectedImage);
                 System.out.println(mSelectedImage);
             }
         });
@@ -208,6 +223,9 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 }else{
                     new DialogBox().ViewDialogBox(view,"Please Check!",this.error);
                 }
+                break;
+            case R.id.attach:
+                Init();
                 break;
             default:
                 break;
@@ -235,8 +253,51 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
             this.error = this.error +"description.";
         }
 
+        this.uploadImage = false;
+        if (!sValdator.isEmptyString(editTextPath.getText().toString())){
+            //call file upload
+            uploadImage = true;
+        }
 
         return validate;
+    }
+
+    private void uploadImage(String Key){
+        FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
+        StorageReference ref = fm.getmStorageReference().child("images/"+fm.getUserID()+"/"+Key);
+        Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
+        ref.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d(TAG,"upload success");
+                        String url =taskSnapshot.getDownloadUrl().toString();
+                        setUrl(url);
+                        pushData(2);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG,"upload fail");
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                .getTotalByteCount());
+                        Log.d(TAG,String.valueOf(progress));
+                    }
+                });
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    public String getUrl(){
+        return url;
     }
 
     private void getUserInfo(){
@@ -249,7 +310,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 com.edu.knowit.knowit.Models.User user = dataSnapshot.getValue(com.edu.knowit.knowit.Models.User.class);
                 PostFragment.this.user = user;
                 System.out.println(PostFragment.this.user);
-                pushData();
+                pushData(1);
             }
 
             @Override
@@ -263,32 +324,47 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
     }
 
-    public void pushData(){
+    public void pushData(int key){
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
-        Post post = new Post(fm.getUserID(),user.getName(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
-
         DatabaseReference ref = fm.createPost();
-            ref.push().setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG,"Post Success");
-                            editTextTitle.setText("");
-                            editTextDesc.setText("");
-                            url ="";
-                            new DialogBox().ViewDialogBox(view,"Success","successfully post to community");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                          Log.d(TAG,e.getMessage());
-                            new DialogBox().ViewDialogBox(view,"Error",e.getMessage());
-                        }
-                    });
+        switch (key){
+
+            case 1:
+                Post post = new Post(fm.getUserID(),user.getName(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
+                DatabaseReference set = ref.push();
+                postID = set.getKey();
+                set.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        Log.d(TAG,"Post Success");
+                        editTextTitle.setText("");
+                        editTextDesc.setText("");
+                        url ="";
+                        new DialogBox().ViewDialogBox(view,"Success","successfully post to community");
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG,e.getMessage());
+                                new DialogBox().ViewDialogBox(view,"Error",e.getMessage());
+                            }
+                        });
+
+                if(uploadImage){
+                    uploadImage(postID);
+                }
+
+                break;
+            case 2:
+
+                ref = fm.createPost();
+                ref.child(postID).child("image").setValue(url);
+
+                break;
+
+        }
 
     }
-
-
-
-
 }
