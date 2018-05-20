@@ -12,6 +12,10 @@ public class User {
     private String url;
     private String timestap;
 
+    public User(){
+
+    }
+
     public User(String name, String contact, String email, String sliit_id, String url, String timestap){
         this.name = name;
         this.contact = contact;

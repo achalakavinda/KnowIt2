@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="Title"/>
                 <EditText
+                    android:id="@+id/title"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:layout_width="match_parent"
@@ -56,6 +57,7 @@
                     android:layout_height="20dp"
                     android:text="Description"/>
                 <EditText
+                    android:id="@+id/description"
                     android:layout_marginTop="15dp"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"

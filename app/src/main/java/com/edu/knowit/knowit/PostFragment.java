@@ -11,16 +11,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.edu.knowit.knowit.Models.Post;
+import com.edu.knowit.knowit.Models.User;
+import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FilePaths;
 import com.edu.knowit.knowit.Util.FileSearch;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.edu.knowit.knowit.Util.GridImageAdapter;
+import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,18 +43,27 @@ import java.util.ArrayList;
  */
 public class PostFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private static final String TAG = "PostFragment";
+    private String error = "";
 
     //constants
     private static final int NUM_GRID_COLUMNS = 2;
 
     //widgets
     private View view;
-    private Spinner spinner;
     private GridView gridView;
     private ImageView galleryImage;
     private ProgressBar mProgressBar;
     private Spinner directorySpinner;
     private Button postBtn;
+
+    //view variables
+    private Spinner spinner;
+    private EditText editTextTitle;
+    private EditText editTextDesc;
+
+
+    // firebase image url path
+    private String url;
 
 
 
@@ -94,6 +108,9 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
+        editTextTitle = (EditText) view.findViewById(R.id.title);
+        editTextDesc = (EditText) view.findViewById(R.id.description);
+
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,paths);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -172,10 +189,6 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
     }
 
-    private void setUpFireBase(){
-
-    }
-
     @Override
     public void onClick(View view)
     {
@@ -185,12 +198,50 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
             case R.id.post:
                 Log.d(TAG,"Post Click");
-                FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
-                fm.writeNewPost();
+                if (sValidator()){
+                    pushFirebase();
+                }else{
+                    new DialogBox().ViewDialogBox(view,"Please Check!",this.error);
+                }
                 break;
             default:
                 break;
         }
+    }
+
+
+    private Boolean sValidator(){
+        boolean validate = true;
+        this.error = "";
+        String category = spinner.getSelectedItem().toString();
+        String title = editTextTitle.getText().toString();
+        String desc = editTextDesc.getText().toString();
+        StringValidator sValdator = new StringValidator();
+
+
+
+        if(sValdator.isEmptyString(title)){
+            validate = false;
+            this.error = this.error +"title, ";
+        }
+
+        if(sValdator.isEmptyString(desc)){
+            validate = false;
+            this.error = this.error +"description.";
+        }
+
+
+        return validate;
+    }
+
+    private void pushFirebase(){
+
+
+        Post postModel = new Post("","","","","","","","","");
+        FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
+        User user = fm.getUserInfo();
+        System.out.println(user);
+
     }
 
 }

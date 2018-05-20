@@ -8,14 +8,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Models.Photo;
-import com.edu.knowit.knowit.Models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -32,6 +33,8 @@ import java.util.TimeZone;
 
 public class FirebaseMethods {
     private static final String TAG = "FirebaseMethods";
+
+    com.edu.knowit.knowit.Models.User user =null;
 
     @IgnoreExtraProperties
     public class User {
@@ -76,6 +79,31 @@ public class FirebaseMethods {
 
     public void userRegister(com.edu.knowit.knowit.Models.User us){
         myRef.child("user_details").child(userID).setValue(us);
+    }
+
+    public com.edu.knowit.knowit.Models.User getUserInfo(){
+
+
+        DatabaseReference ref =  mFirebaseDatabase.getReference("/user_details/").child(this.userID);
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                com.edu.knowit.knowit.Models.User user = dataSnapshot.getValue(com.edu.knowit.knowit.Models.User.class);
+                FirebaseMethods.this.user = user;
+                System.out.println(user.getContact());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        ref.addListenerForSingleValueEvent(listener);
+
+        ref.removeEventListener(listener);
+
+        return this.user;
     }
 
     public void writeNewPost() {
