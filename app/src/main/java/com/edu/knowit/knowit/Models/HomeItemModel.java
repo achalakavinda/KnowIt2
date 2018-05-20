@@ -12,16 +12,21 @@ public class HomeItemModel {
     private String date;
     private String title;
     private String image;
+    private String category;
     private String description;
     private String like;
     private String comment;
     private String dislike;
 
+    public HomeItemModel(){
+
+    }
 
     public HomeItemModel(
             String id,
             String author,
             String date,
+            String category,
             String title,
             String image,
             String description,
@@ -33,6 +38,8 @@ public class HomeItemModel {
 
         this.id = id;
         this.author = author;
+        this.category = category;
+        this.title = title;
         this.date = date;
         this.image = image;
         this.description = description;
@@ -42,48 +49,85 @@ public class HomeItemModel {
 
     }
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public String getAuthor()
-    {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAuthor() {
         return author;
     }
 
-    public String getDate()
-    {
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public String getTitle()
-    {
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTitle() {
         return title;
     }
 
-    public String getImage()
-    {
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
         return image;
     }
 
-    public String getDescription()
-    {
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public String getLike()
-    {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLike() {
         return like;
     }
 
-    public String getComment()
-    {
+    public void setLike(String like) {
+        this.like = like;
+    }
+
+    public String getComment() {
         return comment;
     }
 
-    public String getDeslike()
-    {
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getDislike() {
         return dislike;
     }
+
+    public void setDislike(String dislike) {
+        this.dislike = dislike;
+    }
+
 }
+

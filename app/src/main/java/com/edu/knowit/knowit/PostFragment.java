@@ -1,8 +1,10 @@
 package com.edu.knowit.knowit;
 
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,12 +28,15 @@ import com.edu.knowit.knowit.Util.FileSearch;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.edu.knowit.knowit.Util.GridImageAdapter;
 import com.edu.knowit.knowit.Util.StringValidator;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -65,8 +70,8 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     // firebase image url path
     private String url;
 
-
-
+    //data models
+    public User user = null;
 
 
     //variables
@@ -199,7 +204,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
             case R.id.post:
                 Log.d(TAG,"Post Click");
                 if (sValidator()){
-                    pushFirebase();
+                    getUserInfo();
                 }else{
                     new DialogBox().ViewDialogBox(view,"Please Check!",this.error);
                 }
@@ -234,14 +239,56 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         return validate;
     }
 
-    private void pushFirebase(){
-
-
-        Post postModel = new Post("","","","","","","","","");
+    private void getUserInfo(){
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
-        User user = fm.getUserInfo();
-        System.out.println(user);
+        DatabaseReference ref = fm.getUserInfoRef();
+        ValueEventListener listener = new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                com.edu.knowit.knowit.Models.User user = dataSnapshot.getValue(com.edu.knowit.knowit.Models.User.class);
+                PostFragment.this.user = user;
+                System.out.println(PostFragment.this.user);
+                pushData();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG,databaseError.getDetails());
+                new DialogBox().ViewDialogBox(view,"Error",databaseError.getMessage());
+            }
+        };
+        ref.addListenerForSingleValueEvent(listener);
+        ref.removeEventListener(listener);
 
     }
+
+    public void pushData(){
+        FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
+        Post post = new Post(fm.getUserID(),user.getName(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
+
+        DatabaseReference ref = fm.createPost();
+            ref.push().setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG,"Post Success");
+                            editTextTitle.setText("");
+                            editTextDesc.setText("");
+                            url ="";
+                            new DialogBox().ViewDialogBox(view,"Success","successfully post to community");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                          Log.d(TAG,e.getMessage());
+                            new DialogBox().ViewDialogBox(view,"Error",e.getMessage());
+                        }
+                    });
+
+    }
+
+
+
 
 }

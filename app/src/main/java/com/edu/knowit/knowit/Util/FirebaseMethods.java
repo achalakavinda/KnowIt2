@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Models.Photo;
+import com.edu.knowit.knowit.Models.Post;
+import com.edu.knowit.knowit.Models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +61,17 @@ public class FirebaseMethods {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private StorageReference mStorageReference;
+
+    public String getUserID() {
+        return userID;
+    }
+    public DatabaseReference getMyRef(){
+        return this.myRef;
+    }
+
     private String userID;
+
+
 
     //vars
     private Context mContext;
@@ -81,34 +93,15 @@ public class FirebaseMethods {
         myRef.child("user_details").child(userID).setValue(us);
     }
 
-    public com.edu.knowit.knowit.Models.User getUserInfo(){
+    public DatabaseReference getUserInfoRef(){
 
+        return mFirebaseDatabase.getReference("/user_details/").child(this.userID);
 
-        DatabaseReference ref =  mFirebaseDatabase.getReference("/user_details/").child(this.userID);
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                com.edu.knowit.knowit.Models.User user = dataSnapshot.getValue(com.edu.knowit.knowit.Models.User.class);
-                FirebaseMethods.this.user = user;
-                System.out.println(user.getContact());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        ref.addListenerForSingleValueEvent(listener);
-
-        ref.removeEventListener(listener);
-
-        return this.user;
     }
 
-    public void writeNewPost() {
-//        com.edu.knowit.knowit.Models.User us = new com.edu.knowit.knowit.Models.User("achala","kavinda","","sasa");
-//        myRef.child("post").child(userID).push().setValue(us);
+    public DatabaseReference createPost() {
+
+       return myRef.child("post");
     }
 
     public int getImageCount(DataSnapshot dataSnapshot){
@@ -204,7 +197,7 @@ public class FirebaseMethods {
 
     }
 
-    private String getTimestamp(){
+    public String getTimestamp(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
         sdf.setTimeZone(TimeZone.getTimeZone("Canada/Pacific"));
         return sdf.format(new Date());

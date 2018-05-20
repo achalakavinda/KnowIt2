@@ -1,26 +1,35 @@
 package com.edu.knowit.knowit.Models;
 
+import com.edu.knowit.knowit.Util.StringValidator;
+
 /**
  * Created by Achala Kavinda on 5/20/2018.
  */
 
 public class Post {
 
+
     private String id;
     private String author;
     private String date;
     private String title;
     private String image;
+    private String category;
     private String description;
     private String like;
     private String comment;
     private String dislike;
+
+    public Post(){
+
+    }
 
 
     public Post(
             String id,
             String author,
             String date,
+            String category,
             String title,
             String image,
             String description,
@@ -32,6 +41,8 @@ public class Post {
 
         this.id = id;
         this.author = author;
+        this.category = category;
+        this.title = title;
         this.date = date;
         this.image = image;
         this.description = description;
@@ -40,7 +51,6 @@ public class Post {
         this.dislike = dislike;
 
     }
-
 
     public String getId() {
         return id;
@@ -82,6 +92,14 @@ public class Post {
         this.image = image;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -113,6 +131,5 @@ public class Post {
     public void setDislike(String dislike) {
         this.dislike = dislike;
     }
-
 
 }
