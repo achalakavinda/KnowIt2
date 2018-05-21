@@ -5,8 +5,8 @@ android {
     buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "com.edu.knowit.knowit"
-        minSdkVersion 22
-        targetSdkVersion 23
+        minSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

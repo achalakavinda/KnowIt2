@@ -86,35 +86,38 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/path"/>
                     </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/colorFontPanel"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:layout_below="@+id/headerpanel">
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerDirectory"
+                        android:textSize="20sp"
+                        android:text="Gallery"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"/>
+                    <GridView
+                        android:id="@+id/gridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:numColumns="5"
+                        android:verticalSpacing="1sp"
+                        android:horizontalSpacing="1sp"
+                        android:stretchMode="none"
+                        android:gravity="center">
+                    </GridView>
                 </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/colorFontPanel"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"
-            android:layout_below="@+id/headerpanel">
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerDirectory"
-                android:textSize="20sp"
-                android:text="Gallery"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"/>
-            <GridView
-                android:id="@+id/gridView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:numColumns="5"
-                android:verticalSpacing="1sp"
-                android:horizontalSpacing="1sp"
-                android:stretchMode="none"
-                android:gravity="center">
-            </GridView>
-        </LinearLayout>
+                </LinearLayout>
+
+
 
     </RelativeLayout>
 
