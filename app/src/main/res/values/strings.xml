@@ -36,4 +36,5 @@
     <string name="DB_UserDetails">user_details_tab</string>
     <string name="dbname_user_photos">user_photos</string>
     <string name="rglabelcommfirmpassword">Comfirm Password</string>
+    <string name="q_a"><![CDATA[Q & A]]></string>
 </resources>

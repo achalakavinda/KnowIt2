@@ -1,6 +1,7 @@
 package com.edu.knowit.knowit;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -121,5 +122,7 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
 
     public void signOut(){
         FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }
