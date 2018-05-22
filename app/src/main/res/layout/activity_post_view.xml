@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -27,7 +25,6 @@
         android:paddingBottom="100dp"
         android:layout_below="@+id/navbar">
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/card"
@@ -50,14 +47,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:orientation="horizontal">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:id="@+id/authorImage"
                             android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/logo"/>
+                            android:layout_height="40dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:text="PS"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -114,20 +114,9 @@
                     <ImageView
                         android:id="@+id/image"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        android:src="@drawable/background"/>
+                        android:layout_height="400dp"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/colorTextPrimary"/>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,6 +154,21 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/colorTextPrimary"/>
+                </LinearLayout>
+
             </LinearLayout>
 
 
@@ -172,73 +176,80 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/card"
-        android:padding="5dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="5"
-                android:layout_marginTop="10dp"
-                android:id="@+id/commentText"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:padding="5sp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:gravity="center_horizontal"
-            android:paddingRight="10dp">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:text="Reply"
-                android:background="@color/colorFontPanelAlpha"
-                android:src="@drawable/ic_reply_black_24dp"/>
-        </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/commentLinearLayout"
         android:visibility="gone"
         android:background="@drawable/shape"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp"
-        android:orientation="vertical">
-        <ImageButton
-            android:id="@+id/commentListToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@color/colorFontPanelAlpha"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10sp"
-            android:src="@drawable/ic_close_black_24dp"/>
-        <ListView
-            android:id="@+id/commentlistview"
+        android:padding="5dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fadeScrollbars="true"
-            android:clickable="true"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:paddingTop="15dp"/>
-    </LinearLayout>
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/commentListToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/colorFontPanelAlpha"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10sp"
+                android:src="@drawable/ic_close_black_24dp"/>
+            <ListView
+                android:id="@+id/commentlistview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="true"
+                android:clickable="true"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:paddingBottom="60dp"
+                android:paddingTop="15dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="2"
+                    android:id="@+id/commentText"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:padding="5sp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:gravity="center_horizontal"
+                android:paddingRight="10dp">
+                <Button
+                    android:id="@+id/reply"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="Reply"
+                    android:background="@color/colorFontPanelAlpha"
+                    android:src="@drawable/ic_reply_black_24dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 
 

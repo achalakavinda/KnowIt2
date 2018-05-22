@@ -109,6 +109,11 @@ public class FirebaseMethods {
        return myRef.child("post");
     }
 
+    public DatabaseReference createComment() {
+
+        return myRef.child("comment");
+    }
+
     public int getImageCount(DataSnapshot dataSnapshot){
         int count = 0;
         for(DataSnapshot ds: dataSnapshot

@@ -1,34 +1,79 @@
 package com.edu.knowit.knowit;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.edu.knowit.knowit.ListAdapters.CommentListAdapter;
 import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
-import com.edu.knowit.knowit.Models.SearchItemModel;
+import com.edu.knowit.knowit.Models.CommentItemModel;
+import com.edu.knowit.knowit.Util.DialogBox;
+import com.edu.knowit.knowit.Util.FirebaseMethods;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class PostViewActivity extends AppCompatActivity implements View.OnClickListener{
     private String TAG="PostViewActivity";
 
-    private ArrayList<SearchItemModel> dataModels;
+    private View view;
+    private Intent intent;
+    private Bundle extraBundle;
+
+    private ArrayList<CommentItemModel> dataModels;
 
     private Toolbar toolbar;
     private ListView listView;
-    private View view;
-    private SearchListAdapter adapter;
+
+    private TextView txtId;
+    private ImageView authorImage;
+    private TextView txtName;
+    private TextView txtDate;
+    private TextView txtSubject;
+    private LinearLayout imgLayout;
+    private ImageView image;
+    private TextView description;
+    private Button buttonReply;
+
+
+
+
+    private CommentListAdapter adapter;
     private ImageButton imageButtonCloseToggle;
-    private LinearLayout linearLayoutCommentLinearLayout;
+    private RelativeLayout linearLayoutCommentLinearLayout;
     private Button buttonLike;
     private Button buttonQandA;
     private Button buttonDislike;
+
+    public static class info{
+        public static  String id;
+        public static  String post_id;
+        public static  String author;
+        public static  String author_img;
+        public static  String date;
+        public static  String title;
+        public static  String image;
+        public static  String category;
+        public static  String description;
+        public static  String like;
+        public static  String comment;
+        public static  String dislike;
+    }
 
 
     @Override
@@ -38,27 +83,19 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
 
         dataModels= new ArrayList<>();
 
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
+        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
 
-        dataModels= new ArrayList<>();
 
-
-        dataModels.add(new SearchItemModel("id","PS","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","DCCN-I","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-        dataModels.add(new SearchItemModel("id","MIT","dhaus dhdj sdh dhasd hadjh adhad hhda dua da dhasdhashdhasudhahdahd"));
-
-        adapter = new SearchListAdapter(dataModels,this);
+        adapter = new CommentListAdapter(dataModels,this);
         listView.setAdapter(adapter);
     }
 
@@ -66,16 +103,28 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        intent = getIntent();
+
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_post_view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView= (ListView) findViewById(R.id.commentlistview);
         imageButtonCloseToggle = (ImageButton) findViewById(R.id.commentListToggle);
-        linearLayoutCommentLinearLayout = (LinearLayout) findViewById(R.id.commentLinearLayout);
+        linearLayoutCommentLinearLayout = (RelativeLayout) findViewById(R.id.commentLinearLayout);
+
+        txtId = (TextView) findViewById(R.id.id);
+        txtName = (TextView) findViewById(R.id.name);
+        authorImage = (ImageView) findViewById(R.id.authorImage);
+        txtDate = (TextView) findViewById(R.id.date);
+        txtSubject = (TextView) findViewById(R.id.subject);
+        description = (TextView) findViewById(R.id.description);
+        image = (ImageView) findViewById(R.id.image);
+
 
         buttonLike = (Button) findViewById(R.id.likeButton);
         buttonQandA = (Button) findViewById(R.id.qAndAButton);
         buttonDislike = (Button) findViewById(R.id.dislikeButton);
+        buttonReply = (Button) findViewById(R.id.reply);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,7 +134,13 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         buttonLike.setOnClickListener(this);
         buttonDislike.setOnClickListener(this);
         buttonQandA.setOnClickListener(this);
+        buttonReply.setOnClickListener(this);
 
+
+
+        if(extractExtraFromBundle()){
+            setValue();
+        }
 
     }
 
@@ -104,8 +159,72 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.qAndAButton:
                 linearLayoutCommentLinearLayout.setVisibility(View.VISIBLE);
-                linearLayoutCommentLinearLayout.animate();
+                break;
+
+            case R.id.reply:
+                pushComment();
                 break;
         }
+    }
+
+    private boolean extractExtraFromBundle(){
+
+        extraBundle = intent.getExtras();
+        if(extraBundle!= null){
+            info.id = extraBundle.getString("id");
+            info.post_id = extraBundle.getString("post_id");
+            info.author = extraBundle.getString("author");
+            info.author_img = extraBundle.getString("author_img");
+            info.comment = extraBundle.getString("comment");
+            info.date = extraBundle.getString("date");
+            info.description = extraBundle.getString("description");
+            info.dislike = extraBundle.getString("dislike");
+            info.image = extraBundle.getString("image");
+            info.like = extraBundle.getString("like");
+            info.title = extraBundle.getString("title");
+
+            return true;
+
+        }else {
+//                new DialogBox().ViewDialogBox(,"Error","No Values are pass");
+            Log.d(TAG,"Bundle values are not pass");
+                return false;
+        }
+    }
+
+    private void setValue(){
+        txtId.setText(info.id);
+        txtName.setText(info.author);
+        txtDate.setText(info.date);
+        txtSubject.setText(info.title);
+        description.setText(info.description);
+
+        if(info.author_img!=null && !info.author_img.isEmpty()){
+            Picasso.get().load(info.author_img).into(authorImage);
+        }
+        if(info.image!=null && !info.image.isEmpty()){
+            Picasso.get().load(info.image).into(image);
+        }
+    }
+
+    public void pushComment(){
+        FirebaseMethods fm = new FirebaseMethods(this);
+        DatabaseReference ref = fm.createComment().child(info.post_id);
+        CommentItemModel comment = new CommentItemModel(fm.getUserID(),info.id,info.author,info.author_img,fm.getTimestamp(),description.getText().toString());
+
+        ref.push().setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG,"Success");
+//                new DialogBox().ViewDialogBox(getApplication().getApplicationContext(),"Success","successfully add comment");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG,e.getMessage());
+//                        new DialogBox().ViewDialogBox(getApplication().getApplicationContext(),"Error",e.getMessage());
+                    }
+                });
     }
 }

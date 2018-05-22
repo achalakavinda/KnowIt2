@@ -1,6 +1,7 @@
 package com.edu.knowit.knowit;
 
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.app.Fragment;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.edu.knowit.knowit.Util.FilePaths;
 import com.edu.knowit.knowit.Util.FileSearch;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.edu.knowit.knowit.Util.GridImageAdapter;
+import com.edu.knowit.knowit.Util.Permissions;
 import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +57,7 @@ import java.util.ArrayList;
  */
 public class PostFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private static final String TAG = "PostFragment";
+    private static final int VERIFY_PERMISSIONS_REQUEST = 1;
     private String error = "";
 
     //constants
@@ -225,7 +229,14 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 }
                 break;
             case R.id.attach:
-                Init();
+                if(checkPermissionsArray(Permissions.PERMISSIONS)){
+
+
+                }else{
+                    verifyPermissions(Permissions.PERMISSIONS);
+                    Init();
+                }
+
                 break;
             default:
                 break;
@@ -330,9 +341,9 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         switch (key){
 
             case 1:
-                Post post = new Post(fm.getUserID(),user.getName(),user.getUrl(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
                 DatabaseReference set = ref.push();
                 postID = set.getKey();
+                Post post = new Post(postID,postID,fm.getUserID(),user.getName(),user.getUrl(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
                 set.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -341,6 +352,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                         editTextTitle.setText("");
                         editTextDesc.setText("");
                         url ="";
+                        editTextPath.setText("");
                         new DialogBox().ViewDialogBox(view,"Success","successfully post to community");
                     }
                 })
@@ -366,5 +378,42 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
         }
 
+    }
+
+    public boolean checkPermissionsArray(String[] permissions){
+        Log.d(TAG, "checkPermissionsArray: checking permissions array.");
+
+        for(int i = 0; i< permissions.length; i++){
+            String check = permissions[i];
+            if(!checkPermissions(check)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkPermissions(String permission){
+        Log.d(TAG, "checkPermissions: checking permission: " + permission);
+
+        int permissionRequest = ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), permission);
+
+        if(permissionRequest != PackageManager.PERMISSION_GRANTED){
+            Log.d(TAG, "checkPermissions: \n Permission was not granted for: " + permission);
+            return false;
+        }
+        else{
+            Log.d(TAG, "checkPermissions: \n Permission was granted for: " + permission);
+            return true;
+        }
+    }
+
+    public void verifyPermissions(String[] permissions){
+        Log.d(TAG, "verifyPermissions: verifying permissions.");
+
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                permissions,
+                VERIFY_PERMISSIONS_REQUEST
+        );
     }
 }

@@ -35,6 +35,7 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
     private static class ViewHolder {
         TextView txtId;
         TextView txtAuthor;
+        ImageView imgAuthorImage;
         TextView txtDate;
         TextView txtTitle;
         ImageView imgImage;
@@ -75,6 +76,7 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
 
             viewHolder.txtId = (TextView) convertView.findViewById(R.id.id);
             viewHolder.txtAuthor = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.imgAuthorImage = (ImageView) convertView.findViewById(R.id.authorImage);
             viewHolder.txtDate = (TextView) convertView.findViewById(R.id.date);
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.subject);
             viewHolder.imgImage = (ImageView) convertView.findViewById(R.id.image);
@@ -104,6 +106,10 @@ public class HomeListAdapter extends ArrayAdapter<HomeItemModel> implements View
             Picasso.get().load(dataModel.getImage()).into(viewHolder.imgImage);
         }else{
             viewHolder.imgLayout.setVisibility(View.GONE);
+        }
+
+        if(dataModel.getAuthor_img()!=null && !dataModel.getAuthor_img().isEmpty()){
+            Picasso.get().load(dataModel.getAuthor_img()).into(viewHolder.imgAuthorImage);
         }
 
         return convertView;

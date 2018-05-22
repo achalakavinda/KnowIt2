@@ -10,8 +10,10 @@ public class Post {
 
 
     private String id;
+    private String post_id;
+    private String user_id;
     private String author;
-    private String auther_img;
+    private String author_img;
     private String date;
     private String title;
     private String image;
@@ -28,8 +30,10 @@ public class Post {
 
     public Post(
             String id,
+            String post_id,
+            String user_id,
             String author,
-            String auther_img,
+            String author_img,
             String date,
             String category,
             String title,
@@ -42,8 +46,10 @@ public class Post {
     {
 
         this.id = id;
+        this.post_id = post_id;
+        this.user_id = user_id;
         this.author = author;
-        this.auther_img = auther_img;
+        this.author_img = author_img;
         this.category = category;
         this.title = title;
         this.date = date;
@@ -72,12 +78,12 @@ public class Post {
     }
 
 
-    public String getAuther_img() {
-        return auther_img;
+    public String getAuthor_img() {
+        return author_img;
     }
 
-    public void setAuther_img(String auther_img) {
-        this.auther_img = auther_img;
+    public void setAuthor_img(String author_img) {
+        this.author_img = author_img;
     }
 
 
@@ -144,5 +150,26 @@ public class Post {
     public void setDislike(String dislike) {
         this.dislike = dislike;
     }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
+    }
+
+
+
+
 
 }

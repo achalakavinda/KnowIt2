@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Models.Post;
+import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +42,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     private CoordinatorLayout co_ordinated_layout_main_payment;
     private ProgressBar spinner;
     private Bundle bundle ;
+    private DialogBox dBox;
 
 
     public HomeFragment() {
@@ -53,9 +55,9 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         listView=view.findViewById(R.id.paymentListView);
-        spinner = view.findViewById(R.id.progressBarPayment);
-        spinner.setVisibility(View.GONE);
+        spinner = view.findViewById(R.id.progressBarHome);
 
+        dBox = new DialogBox();
 
 
         // Inflate the layout for this fragment
@@ -80,6 +82,16 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 bundle = new Bundle();//create bundle object to pass values
 
                 bundle.putString("id",  dataModels.get(position).getId());
+                bundle.putString("post_id",dataModels.get(position).getPost_id());
+                bundle.putString("author",dataModels.get(position).getAuthor());
+                bundle.putString("author_img",dataModels.get(position).getAuthor_img());
+                bundle.putString("comment",dataModels.get(position).getComment());
+                bundle.putString("date",dataModels.get(position).getDate());
+                bundle.putString("description",dataModels.get(position).getDescription());
+                bundle.putString("dislike",dataModels.get(position).getDislike());
+                bundle.putString("image",dataModels.get(position).getImage());
+                bundle.putString("like",dataModels.get(position).getLike());
+                bundle.putString("title",dataModels.get(position).getTitle());
 
                 intent.putExtras(bundle);
 
@@ -101,19 +113,26 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
         DatabaseReference ref = fm.getMyRef();
 
+        spinner.setVisibility(View.VISIBLE);
+
 
         ref.child("/post").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                spinner.setVisibility(View.VISIBLE);
                 dataModels= new ArrayList<>();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     dataModels.add(postSnapshot.getValue(HomeItemModel.class));
                 }
+
                 if(dataModels.size()!=0){
                     adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
                     listView.setAdapter(adapter);
+                    spinner.setVisibility(View.GONE);
+                }else {
+                    spinner.setVisibility(View.GONE);
+                    dBox.ViewDialogBox(view,"Empty","No post are added");
                 }
-
             }
 
             @Override
@@ -121,8 +140,6 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         });
-
-
 
     }
 

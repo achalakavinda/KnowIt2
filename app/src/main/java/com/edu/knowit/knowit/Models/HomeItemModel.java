@@ -6,9 +6,10 @@ package com.edu.knowit.knowit.Models;
 
 public class HomeItemModel {
 
-
     private String id;
+    private String post_id;
     private String author;
+    private String author_img;
     private String date;
     private String title;
     private String image;
@@ -22,9 +23,12 @@ public class HomeItemModel {
 
     }
 
+
     public HomeItemModel(
             String id,
+            String post_id,
             String author,
+            String author_img,
             String date,
             String category,
             String title,
@@ -37,7 +41,9 @@ public class HomeItemModel {
     {
 
         this.id = id;
+        this.post_id=post_id;
         this.author = author;
+        this.author_img = author_img;
         this.category = category;
         this.title = title;
         this.date = date;
@@ -64,6 +70,16 @@ public class HomeItemModel {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
+    public String getAuthor_img() {
+        return author_img;
+    }
+
+    public void setAuthor_img(String auther_img) {
+        this.author_img = auther_img;
+    }
+
 
     public String getDate() {
         return date;
@@ -127,6 +143,15 @@ public class HomeItemModel {
 
     public void setDislike(String dislike) {
         this.dislike = dislike;
+    }
+
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
     }
 
 }

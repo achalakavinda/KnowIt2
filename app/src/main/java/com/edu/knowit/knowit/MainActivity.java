@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    private static final int VERIFY_PERMISSIONS_REQUEST = 1;
+
 
       @Override
     protected void onStart()
@@ -95,14 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 checkCurrentUser(user);
                 if(user != null){
                     Log.d(TAG,"onAuthStateChanged: signed_In"+user.getUid());
-
-                    if(checkPermissionsArray(Permissions.PERMISSIONS)){
-
-
-                    }else{
-                        verifyPermissions(Permissions.PERMISSIONS);
-
-                    }
                     Intent intent = new Intent(getApplication().getApplicationContext(),BaseActivity.class);
                     startActivity(intent);
                     finish();
@@ -123,46 +115,5 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG,"checkCurrentUser: not signed_Out");
         }
     }
-
-
-    public boolean checkPermissionsArray(String[] permissions){
-        Log.d(TAG, "checkPermissionsArray: checking permissions array.");
-
-        for(int i = 0; i< permissions.length; i++){
-            String check = permissions[i];
-            if(!checkPermissions(check)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean checkPermissions(String permission){
-        Log.d(TAG, "checkPermissions: checking permission: " + permission);
-
-        int permissionRequest = ActivityCompat.checkSelfPermission(MainActivity.this, permission);
-
-        if(permissionRequest != PackageManager.PERMISSION_GRANTED){
-            Log.d(TAG, "checkPermissions: \n Permission was not granted for: " + permission);
-            return false;
-        }
-        else{
-            Log.d(TAG, "checkPermissions: \n Permission was granted for: " + permission);
-            return true;
-        }
-    }
-
-    public void verifyPermissions(String[] permissions){
-        Log.d(TAG, "verifyPermissions: verifying permissions.");
-
-        ActivityCompat.requestPermissions(
-                MainActivity.this,
-                permissions,
-                VERIFY_PERMISSIONS_REQUEST
-        );
-   }
-
-
-
 
 }
