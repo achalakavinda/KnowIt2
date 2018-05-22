@@ -17,12 +17,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.Util.DialogBox;
+import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,6 +42,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
     private static final String TAG = "LoginFragment";
+    private  String error ="";
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -60,6 +63,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -123,8 +127,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void init(){
         String email = editTextUsername.getText().toString();
         String password =  editTextPassword.getText().toString();
-        if(!isStringNull(email) && !isStringNull(password)){
+        if(!isStringNull(email,1) && !isStringNull(password,2)){
             Log.d(TAG,"yes this is call");
+            new DialogBox().ViewDialogBox(view,"Please Check",error);
         }else {
             progressBar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password)
@@ -146,9 +151,26 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private boolean isStringNull(String string){
-//        DialogBox db = new DialogBox();
-//        db.ViewDialogBox(view);
+    private boolean isStringNull(String string,int con){
+        StringValidator sValidate = new StringValidator();
+        switch (con){
+            case 1:
+                if(sValidate.isEmptyString(string)){
+                    error = error+"Email ,";
+                    return false;
+                }
+                if(!sValidate.isValidEmailAddress(string)){
+                    error = error+"Invalid Email,";
+                    return false;
+                }
+                break;
+            case 2:
+                if(sValidate.isEmptyString(string)){
+                    error = error+"Password.";
+                    return false;
+                }
+                break;
+        }
         return  true;
     }
 
