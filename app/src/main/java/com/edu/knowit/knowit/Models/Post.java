@@ -11,6 +11,7 @@ public class Post {
 
     private String id;
     private String author;
+    private String auther_img;
     private String date;
     private String title;
     private String image;
@@ -28,6 +29,7 @@ public class Post {
     public Post(
             String id,
             String author,
+            String auther_img,
             String date,
             String category,
             String title,
@@ -41,6 +43,7 @@ public class Post {
 
         this.id = id;
         this.author = author;
+        this.auther_img = auther_img;
         this.category = category;
         this.title = title;
         this.date = date;
@@ -67,6 +70,16 @@ public class Post {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
+    public String getAuther_img() {
+        return auther_img;
+    }
+
+    public void setAuther_img(String auther_img) {
+        this.auther_img = auther_img;
+    }
+
 
     public String getDate() {
         return date;

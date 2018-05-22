@@ -330,7 +330,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         switch (key){
 
             case 1:
-                Post post = new Post(fm.getUserID(),user.getName(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
+                Post post = new Post(fm.getUserID(),user.getName(),user.getUrl(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
                 DatabaseReference set = ref.push();
                 postID = set.getKey();
                 set.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
