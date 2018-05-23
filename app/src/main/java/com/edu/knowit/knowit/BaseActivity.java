@@ -40,13 +40,10 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        toolbar.setTitle("");
-        toolbar.setSubtitle("");
-//        toolbar.setBackgroundColor(getColor(R.color.colorAccent));
         menuDrawerLayout.addDrawerListener(menuToggle);
         menuToggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
