@@ -16,7 +16,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorFontPanelAlpha"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -27,86 +26,85 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelfname"/>
-
                     <EditText
                         android:id="@+id/rgname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:hint="@string/rgplaceholderfname"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelsliitid"/>
+                        android:hint="@string/rgplaceholderfname"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
 
                     <EditText
                         android:id="@+id/rgsliitid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:hint="@string/rgplaceholdersliitid"/>
+                        android:hint="@string/rgplaceholdersliitid"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelcontact"/>
 
                     <EditText
                         android:id="@+id/rgmobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:hint="@string/rgplaceholdercontact"/>
+                        android:hint="@string/rgplaceholdercontact"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelemail"/>
 
                     <EditText
                         android:id="@+id/rgemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:hint="@string/rgplaceholderemail"/>
+                        android:hint="@string/rgplaceholderemail"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelpassword"/>
 
                     <EditText
                         android:id="@+id/rgpassword"
                         android:layout_width="match_parent"
                         android:inputType="textPassword"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:hint="@string/rgplaceholderpassword"/>
+                        android:hint="@string/rgplaceholderpassword"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="20dp"
-                        android:text="@string/rglabelcommfirmpassword"/>
+
 
                     <EditText
                         android:id="@+id/rgcommfirmpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
                         android:inputType="textPassword"
-                        android:hint="@string/rgplaceholdercomfirmpassword"/>
+                        android:hint="@string/rgplaceholdercomfirmpassword"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/edittextbackground"
+                        android:layout_marginBottom="20dp"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -121,9 +119,10 @@
 
                 <Button
                     android:id="@+id/registerBtn"
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnprimary"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/buttonround"
                     android:textColor="#ffffff"
                     android:text="Register"/>
 

@@ -9,21 +9,28 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edu.knowit.knowit.ListAdapters.CommentListAdapter;
+import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
 import com.edu.knowit.knowit.Models.CommentItemModel;
+import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,6 +56,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private ImageView image;
     private TextView description;
     private Button buttonReply;
+    private EditText commentText;
 
 
 
@@ -84,15 +92,6 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         dataModels= new ArrayList<>();
 
         dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
 
 
         adapter = new CommentListAdapter(dataModels,this);
@@ -126,6 +125,9 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         buttonDislike = (Button) findViewById(R.id.dislikeButton);
         buttonReply = (Button) findViewById(R.id.reply);
 
+        commentText = (EditText) findViewById(R.id.commentText);
+
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -158,6 +160,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
                 linearLayoutCommentLinearLayout.setVisibility(View.GONE);
                 break;
             case R.id.qAndAButton:
+                addCommentListner();
                 linearLayoutCommentLinearLayout.setVisibility(View.VISIBLE);
                 break;
 
@@ -210,21 +213,53 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     public void pushComment(){
         FirebaseMethods fm = new FirebaseMethods(this);
         DatabaseReference ref = fm.createComment().child(info.post_id);
-        CommentItemModel comment = new CommentItemModel(fm.getUserID(),info.id,info.author,info.author_img,fm.getTimestamp(),description.getText().toString());
+        CommentItemModel comment = new CommentItemModel(fm.getUserID(),info.id,info.author,info.author_img,fm.getTimestamp(),commentText.getText().toString());
 
         ref.push().setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG,"Success");
-//                new DialogBox().ViewDialogBox(getApplication().getApplicationContext(),"Success","successfully add comment");
+                commentText.setText("");
+                Toast.makeText(getApplication().getApplicationContext(),"Succesfully Posted",Toast.LENGTH_SHORT).show();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG,e.getMessage());
-//                        new DialogBox().ViewDialogBox(getApplication().getApplicationContext(),"Error",e.getMessage());
+                        Toast.makeText(getApplication().getApplicationContext(),"Error ...",Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+
+    public void addCommentListner(){
+        FirebaseMethods fm = new FirebaseMethods(this);
+        DatabaseReference ref = fm.getMyRef();
+
+
+
+        ref.child("/comment").child(info.post_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataModels= new ArrayList<>();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    dataModels.add(postSnapshot.getValue(CommentItemModel.class));
+                }
+
+                if(dataModels.size()!=0){
+                    adapter = new CommentListAdapter(dataModels,getApplication().getApplicationContext());
+                    listView.setAdapter(adapter);
+                }else {
+                    System.out.println("no post found");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
     }
 }
