@@ -120,9 +120,8 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         image = (ImageView) findViewById(R.id.image);
 
 
-        buttonLike = (Button) findViewById(R.id.likeButton);
+
         buttonQandA = (Button) findViewById(R.id.qAndAButton);
-        buttonDislike = (Button) findViewById(R.id.dislikeButton);
         buttonReply = (Button) findViewById(R.id.reply);
 
         commentText = (EditText) findViewById(R.id.commentText);
@@ -133,8 +132,6 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         imageButtonCloseToggle.setOnClickListener(this);
-        buttonLike.setOnClickListener(this);
-        buttonDislike.setOnClickListener(this);
         buttonQandA.setOnClickListener(this);
         buttonReply.setOnClickListener(this);
 

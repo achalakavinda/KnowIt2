@@ -5,7 +5,8 @@
     tools:context="com.edu.knowit.knowit.SearchFragment">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundmain">
 
         <LinearLayout
             android:id="@+id/searchLinearLayout"
@@ -43,6 +44,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:text="Search"
+                    android:textSize="@dimen/textSize"
                     android:background="@color/colorFontPanelAlpha"
                     android:src="@drawable/ic_reply_black_24dp"/>
             </LinearLayout>

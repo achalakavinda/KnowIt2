@@ -17,10 +17,9 @@
         android:paddingLeft="20dp">
         <ImageView
             android:id="@+id/MainLogo"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_marginTop="50sp"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
             android:src="@drawable/logo"/>
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
