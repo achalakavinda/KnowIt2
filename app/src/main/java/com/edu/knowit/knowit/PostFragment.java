@@ -14,13 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,6 +52,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -73,10 +77,13 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     private Button attachBtn;
 
     //view variables
+    private RelativeLayout imageGridRelativeLayout;
     private Spinner spinner;
     private EditText editTextTitle;
     private EditText editTextDesc;
     private EditText editTextPath;
+    private ImageView selectedImageView;
+    private ImageButton closeButton;
 
 
     // firebase image url path
@@ -119,20 +126,27 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_post, container, false);
+
+
+        imageGridRelativeLayout = (RelativeLayout) view.findViewById(R.id.imageGridRelativeLayout);
         gridView = (GridView) view.findViewById(R.id.gridView);
         directorySpinner = (Spinner) view.findViewById(R.id.spinnerDirectory);
 
         postBtn = (Button) view.findViewById(R.id.post);
         attachBtn = (Button) view.findViewById(R.id.attach);
+        closeButton = (ImageButton) view.findViewById(R.id.close);
+
 
         postBtn.setOnClickListener(this);
         attachBtn.setOnClickListener(this);
-
+        closeButton.setOnClickListener(this);
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
         editTextTitle = (EditText) view.findViewById(R.id.title);
         editTextDesc = (EditText) view.findViewById(R.id.description);
         editTextPath = (EditText) view.findViewById(R.id.path);
+
+        selectedImageView = (ImageView) view.findViewById(R.id.galleryImageView);
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,paths);
 
@@ -145,6 +159,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     @Override
     public void onStart() {
         super.onStart();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 //        Init();
     }
 
@@ -208,6 +223,10 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 mSelectedImage = imgURLs.get(position);
                 editTextPath.setText(mSelectedImage);
                 System.out.println(mSelectedImage);
+                imageGridRelativeLayout.setVisibility(View.GONE);
+                Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
+                selectedImageView.setVisibility(View.VISIBLE);
+                selectedImageView.setImageURI(file);
             }
         });
 
@@ -235,8 +254,12 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 }else{
                     verifyPermissions(Permissions.PERMISSIONS);
                     Init();
+                    imageGridRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
+                break;
+            case R.id.close:
+                imageGridRelativeLayout.setVisibility(View.GONE);
                 break;
             default:
                 break;
@@ -373,6 +396,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
                 ref = fm.createPost();
                 ref.child(postID).child("image").setValue(url);
+                selectedImageView.setVisibility(View.GONE);
 
                 break;
 
