@@ -2,32 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context="com.edu.knowit.knowit.PostFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:paddingTop="15sp"
+        android:paddingBottom="20sp"
+        android:paddingRight="5sp"
+        android:paddingLeft="5sp"
+        android:background="@drawable/background_gradient">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/galleryImageView"
-            android:scaleType="centerCrop"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/colorFontPanel"
+                android:background="@drawable/box"
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingBottom="20dp"
                 android:id="@+id/headerpanel">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/galleryImageView"
+                    android:scaleType="centerCrop"/>
 
 
                 <TextView
