@@ -104,6 +104,17 @@ public class FirebaseMethods {
 
     }
 
+    public DatabaseReference getUserInfoRef(String userID){
+
+        return mFirebaseDatabase.getReference("/user_details/").child(userID);
+
+    }
+
+    public DatabaseReference getPostRef(){
+        return mFirebaseDatabase.getReference("post");
+    }
+
+
     public DatabaseReference createPost() {
 
        return myRef.child("post");

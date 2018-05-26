@@ -23,8 +23,10 @@ import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
 import com.edu.knowit.knowit.Models.CommentItemModel;
 import com.edu.knowit.knowit.Models.HomeItemModel;
+import com.edu.knowit.knowit.Models.User;
 import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
+import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +43,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private View view;
     private Intent intent;
     private Bundle extraBundle;
+    private User user;
 
     private ArrayList<CommentItemModel> dataModels;
 
@@ -69,6 +72,9 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonDislike;
 
     public static class info{
+        private static String my_id;
+        private static String  my_name;
+        private static String my_url;
         public static  String id;
         public static  String post_id;
         public static  String author;
@@ -91,7 +97,6 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
 
         dataModels= new ArrayList<>();
 
-        dataModels.add(new CommentItemModel("id","pid","auth","url","date","desc"));
 
 
         adapter = new CommentListAdapter(dataModels,this);
@@ -103,6 +108,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         intent = getIntent();
+        getUserInfo(new FirebaseMethods(this).getUserID());
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_post_view);
@@ -207,10 +213,31 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void getUserInfo(String userID){
+        System.out.println(userID);
+        FirebaseMethods fm  = new FirebaseMethods(this);
+        DatabaseReference ref = fm.getUserInfoRef(userID);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                System.out.println(user.getName());
+                info.my_name = user.getName();
+                info.my_url = user.getUrl();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void pushComment(){
         FirebaseMethods fm = new FirebaseMethods(this);
         DatabaseReference ref = fm.createComment().child(info.post_id);
-        CommentItemModel comment = new CommentItemModel(fm.getUserID(),info.id,info.author,info.author_img,fm.getTimestamp(),commentText.getText().toString());
+        CommentItemModel comment = new CommentItemModel(fm.getUserID(),info.id,info.my_name,info.my_url,fm.getTimestamp(),commentText.getText().toString());
 
         ref.push().setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

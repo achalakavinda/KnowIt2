@@ -305,7 +305,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Log.d(TAG,"upload success");
-                        String url =taskSnapshot.getDownloadUrl().toString();
+                        String url = taskSnapshot.getDownloadUrl().toString();
                         setUrl(url);
                         pushData(2);
                     }

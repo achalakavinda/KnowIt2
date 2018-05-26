@@ -131,6 +131,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                     spinner.setVisibility(View.GONE);
                 }else {
                     spinner.setVisibility(View.GONE);
+                    dataModels= new ArrayList<>();
                     dBox.ViewDialogBox(view,"Empty","No post are added");
                 }
             }

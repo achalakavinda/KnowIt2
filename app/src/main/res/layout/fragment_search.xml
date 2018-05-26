@@ -38,15 +38,15 @@
                 android:paddingLeft="10dp"
                 android:gravity="center_horizontal"
                 android:paddingRight="10dp">
-                <Button
+                <ImageButton
+                    android:id="@+id/search_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:textAlignment="center"
-                    android:text="Search"
+                    android:src="@drawable/ic_search_black_24dp"
                     android:textSize="@dimen/textSize"
-                    android:background="@color/colorFontPanelAlpha"
-                    android:src="@drawable/ic_reply_black_24dp"/>
+                    android:background="@color/colorFontPanelAlpha"/>
             </LinearLayout>
         </LinearLayout>
 
