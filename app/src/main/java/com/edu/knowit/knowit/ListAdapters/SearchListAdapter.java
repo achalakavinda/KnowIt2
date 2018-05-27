@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Models.SearchItemModel;
 import com.edu.knowit.knowit.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -27,10 +28,12 @@ public class SearchListAdapter extends ArrayAdapter<SearchItemModel> implements 
 
     // View lookup cache
     private static class ViewHolder {
-        SearchItemModel item;
-        TextView txtDate;
+        ImageView authorImage;
+        TextView name;
+        TextView date;
         TextView txtTitle;
         TextView txtDesc;
+
     }
     public SearchListAdapter(ArrayList<SearchItemModel> data, Context context) {
         super(context, R.layout.row_search_item, data);
@@ -67,6 +70,9 @@ public class SearchListAdapter extends ArrayAdapter<SearchItemModel> implements 
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.subject);
             viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.description);
 
+            viewHolder.authorImage = (ImageView) convertView.findViewById(R.id.authorImage);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
             result=convertView;
 
             convertView.setTag(viewHolder);
@@ -81,6 +87,12 @@ public class SearchListAdapter extends ArrayAdapter<SearchItemModel> implements 
 
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtDesc.setText(dataModel.getDescription());
+        viewHolder.name.setText(dataModel.getAuthor());
+        viewHolder.date.setText(dataModel.getDate());
+
+        if(dataModel.getAuthor_img()!=null && !dataModel.getAuthor().isEmpty()){
+            Picasso.get().load(dataModel.getAuthor_img()).into(viewHolder.authorImage);
+        }
 
         // Return the completed view to render on screen
         return convertView;

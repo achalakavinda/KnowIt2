@@ -12,21 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.knowit.knowit.ListAdapters.CommentListAdapter;
-import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
-import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
 import com.edu.knowit.knowit.Models.CommentItemModel;
-import com.edu.knowit.knowit.Models.HomeItemModel;
 import com.edu.knowit.knowit.Models.User;
-import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
-import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +49,6 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private TextView txtName;
     private TextView txtDate;
     private TextView txtSubject;
-    private LinearLayout imgLayout;
     private ImageView image;
     private TextView description;
     private Button buttonReply;
@@ -67,12 +60,9 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private CommentListAdapter adapter;
     private ImageButton imageButtonCloseToggle;
     private RelativeLayout linearLayoutCommentLinearLayout;
-    private Button buttonLike;
     private Button buttonQandA;
-    private Button buttonDislike;
 
     public static class info{
-        private static String my_id;
         private static String  my_name;
         private static String my_url;
         public static  String id;
@@ -210,6 +200,8 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         }
         if(info.image!=null && !info.image.isEmpty()){
             Picasso.get().load(info.image).into(image);
+        }else {
+            image.setVisibility(View.GONE);
         }
     }
 

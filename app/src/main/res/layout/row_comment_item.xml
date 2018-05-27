@@ -29,8 +29,7 @@
                 <ImageView
                     android:id="@+id/authorImage"
                     android:layout_width="30sp"
-                    android:layout_height="30sp"
-                    android:src="@drawable/aw"/>
+                    android:layout_height="30sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
