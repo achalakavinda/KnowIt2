@@ -1,7 +1,6 @@
 package com.edu.knowit.knowit;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,13 +13,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.edu.knowit.knowit.ListAdapters.HomeListAdapter;
 import com.edu.knowit.knowit.Models.HomeItemModel;
-import com.edu.knowit.knowit.Models.Post;
 import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +41,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     private ProgressBar spinner;
     private Bundle bundle ;
     private DialogBox dBox;
+    private TextView noPost;
 
 
     public HomeFragment() {
@@ -57,6 +56,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         listView=view.findViewById(R.id.paymentListView);
         spinner = view.findViewById(R.id.progressBarHome);
         listView.setAdapter(adapter);
+        noPost = view.findViewById(R.id.noPost);
 
         dBox = new DialogBox();
 
@@ -134,7 +134,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                         spinner.setVisibility(View.GONE);
                         return;
                     }
-
+                    noPost.setVisibility(View.GONE);
                     adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
                     listView.setAdapter(adapter);
                     spinner.setVisibility(View.GONE);
@@ -146,7 +146,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                         spinner.setVisibility(View.GONE);
                         return;
                     }
-                    dBox.ViewDialogBox(view,"Empty","No post are added");
+                    noPost.setVisibility(View.VISIBLE);
                     adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
                     listView.setAdapter(adapter);
                 }

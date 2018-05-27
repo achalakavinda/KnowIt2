@@ -4,4 +4,5 @@
     <dimen name="textSizeTitle">15sp</dimen>
     <dimen name="post_image_size">300sp</dimen>
     <dimen name="top_margin">5sp</dimen>
+    <dimen name="no_post_text">20sp</dimen>
 </resources>

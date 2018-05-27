@@ -4,10 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.edu.knowit.knowit.HomeFragment">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundmain">
+
+
 
         <ProgressBar
             android:id="@+id/progressBarHome"
@@ -32,6 +36,18 @@
             android:paddingBottom="50dp"/>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/noPost"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/no_post_text"
+
+        android:text="No Post"/>
 
 
 
