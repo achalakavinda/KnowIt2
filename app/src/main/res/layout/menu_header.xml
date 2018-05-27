@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menuHeaderXml"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:paddingTop="40dp"
@@ -17,24 +18,24 @@
             android:layout_height="75dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_person_outline_black_24dp"
-            app:civ_border_width="2dp"
+            app:civ_border_width="1dp"
             app:civ_border_color="@color/colorFontPanel"
             android:layout_centerHorizontal="true"/>
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/menuUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5sp"
             android:textColor="@color/colorBackPanel"
-            android:textSize="15dp"/>
+            android:textSize="@dimen/textSizeTitle"/>
         <TextView
             android:id="@+id/it_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5sp"
             android:textColor="@color/colorBackPanel"
-            android:textSize="15dp"
+            android:textSize="@dimen/textSizeTitle"
             />
     </LinearLayout>
 </RelativeLayout>

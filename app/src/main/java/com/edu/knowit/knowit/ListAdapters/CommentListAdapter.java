@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.edu.knowit.knowit.Models.CommentItemModel;
 import com.edu.knowit.knowit.R;
-
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -74,6 +74,7 @@ public class CommentListAdapter  extends ArrayAdapter<CommentItemModel> implemen
             viewHolder.author = (TextView) convertView.findViewById(R.id.name);
             viewHolder.data = (TextView) convertView.findViewById(R.id.date);
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.author_image = (ImageView) convertView.findViewById(R.id.authorImage);
 
             result=convertView;
 
@@ -91,6 +92,11 @@ public class CommentListAdapter  extends ArrayAdapter<CommentItemModel> implemen
         viewHolder.author.setText(dataModel.getAuthor());
         viewHolder.data.setText(dataModel.getDate());
         viewHolder.description.setText(dataModel.getDescription());
+
+        if(dataModel.getAuthor_image()!=null && !dataModel.getAuthor_image().isEmpty()){
+            Picasso.get().load(dataModel.getAuthor_image()).into(viewHolder.author_image);
+        }
+
 
         // Return the completed view to render on screen
         return convertView;

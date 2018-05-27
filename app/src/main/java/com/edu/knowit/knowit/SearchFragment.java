@@ -1,8 +1,10 @@
 package com.edu.knowit.knowit;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -51,6 +53,8 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
     private static final String[] paths = {"DCCN", "PS", "MIT"};
     private Spinner spinner;
 
+    private Bundle bundle ;
+    private Intent intent;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -89,6 +93,9 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
             public void afterTextChanged(Editable editable) {}
             public void beforeTextChanged(CharSequence cs, int i, int j, int k) {}
         });
+
+        setSearchString(spinner.getSelectedItem().toString());
+        SearchString();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -133,6 +140,42 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
         }
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                dataModels.get(position);
+
+                intent = new Intent(view.getContext(), PostViewActivity.class);
+
+                bundle = new Bundle();//create bundle object to pass values
+
+                bundle.putString("window",TAG);
+                bundle.putString("id",  dataModels.get(position).getId());
+                bundle.putString("post_id",dataModels.get(position).getPost_id());
+                bundle.putString("author",dataModels.get(position).getAuthor());
+                bundle.putString("author_img",dataModels.get(position).getAuthor_img());
+                bundle.putString("comment",dataModels.get(position).getComment());
+                bundle.putString("date",dataModels.get(position).getDate());
+                bundle.putString("description",dataModels.get(position).getDescription());
+                bundle.putString("dislike",dataModels.get(position).getDislike());
+                bundle.putString("image",dataModels.get(position).getImage());
+                bundle.putString("like",dataModels.get(position).getLike());
+                bundle.putString("title",dataModels.get(position).getTitle());
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+
+            }
+        });
+    }
+
 
     public String getSearchString() {
         return SearchString;
