@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.edu.knowit.knowit.Models.User;
 import com.edu.knowit.knowit.Util.DialogBox;
 import com.edu.knowit.knowit.Util.StringValidator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ProfileDetailsActivity extends AppCompatActivity {
     
@@ -25,6 +26,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     
     private EditText user_name, user_email, user_phone, user_sliit_id;
+
+    private de.hdodenhof.circleimageview.CircleImageView circleImageView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,11 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     
         user_name = findViewById(R.id.rgname);
     
-        user_email = findViewById(R.id.rgemail);
-    
         user_phone = findViewById(R.id.rgmobile);
     
         user_sliit_id = findViewById(R.id.rgsliitid);
+
+        circleImageView = findViewById(R.id.avatar);
         
         fillTextViews();
         
@@ -73,13 +76,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             
             return;
         }
-        
-        if (stringValidator.isEmptyString(user_email.getText().toString()))
-        {
-            dialogBox.ViewDialogBox(view, "Please Check", "Please check the email field");
-    
-            return;
-        }
     
         if (stringValidator.isEmptyString(user_phone.getText().toString()))
         {
@@ -94,12 +90,9 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         
             return;
         }
-        
         mDatabaseReference.child("name").setValue(user_name.getText().toString());
-        mDatabaseReference.child("email").setValue(user_email.getText().toString());
         mDatabaseReference.child("contact").setValue(user_phone.getText().toString());
         mDatabaseReference.child("sliit_id").setValue(user_sliit_id.getText().toString());
-    
     }
     
     private void fillTextViews()
@@ -112,13 +105,19 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 
                 if (dataSnapshot.exists())
                 {
-                    user_name.setText(dataSnapshot.child("name").getValue().toString());
+
+                    User user = dataSnapshot.getValue(User.class);
+
+
+                    user_name.setText(user.getName());
                     
-                    user_email.setText(dataSnapshot.child("email").getValue().toString());
+                    user_phone.setText(user.getContact());
                     
-                    user_phone.setText(dataSnapshot.child("contact").getValue().toString());
-                    
-                    user_sliit_id.setText(dataSnapshot.child("sliit_id").getValue().toString());
+                    user_sliit_id.setText(user.getSliit_id());
+
+                    if(user.getUrl()!=null && !user.getUrl().isEmpty()){
+                        Picasso.get().load(user.getUrl()).into(circleImageView);
+                    }
                 }
                 
             }

@@ -22,10 +22,11 @@
             android:title=""/>
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/navbar">
+        android:layout_below="@+id/navbar"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:background="@drawable/background_gradient"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/avatar"
@@ -50,96 +54,50 @@
                     android:layout_centerHorizontal="true"/>
 
                 <TextView
-                    android:id="@+id/menuUsername"
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
                     android:textColor="@color/colorBackPanel"
                     android:textSize="@dimen/textSizeTitle"/>
                 <TextView
-                    android:id="@+id/it_number"
+                    android:id="@+id/user_sliit_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
                     android:textColor="@color/colorBackPanel"
-                    android:textSize="@dimen/textSizeTitle"
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="user name"/>
-
-                <TextView
-
-                    android:id="@+id/user_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-
-                    android:text="email" />
-
-
-                <TextView
-                    android:id="@+id/user_contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-
-                    android:text="Phone"/>
-
-
-                <TextView
-                    android:id="@+id/user_sliit_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-
-                    android:text="SLIIT ID" />
-
-
-                <TextView
-                    android:id="@+id/user_timestamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-
-                    android:text="time stamp" />
-
-                <TextView
-                    android:id="@+id/user_photo_url"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-
-                    android:text="user_photo_url" />
-
+                    android:textSize="@dimen/textSizeTitle"/>
                 <Button
                     android:id="@+id/edit_profile"
-                    android:layout_width="match_parent"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Details"/>
-
+                    android:background="@drawable/buttonround"
+                    android:textColor="@color/colorFontPanel"
+                    android:text="Edit"/>
             </LinearLayout>
+
 
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+            android:id="@+id/profileListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:fadeScrollbars="true"
+            android:clickable="true"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:paddingRight="5dp"/>
 
-    </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
 
 

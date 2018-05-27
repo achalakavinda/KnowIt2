@@ -37,10 +37,8 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     private View view;
     private HomeListAdapter adapter;
     private Intent intent;
-    private CoordinatorLayout co_ordinated_layout_main_payment;
     private ProgressBar spinner;
     private Bundle bundle ;
-    private DialogBox dBox;
     private TextView noPost;
 
 
@@ -58,7 +56,6 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         listView.setAdapter(adapter);
         noPost = view.findViewById(R.id.noPost);
 
-        dBox = new DialogBox();
 
 
         // Inflate the layout for this fragment
@@ -106,7 +103,6 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        co_ordinated_layout_main_payment = view.findViewById(R.id.co_ordinated_layout_main_payment);
         addPostListner();
         spinner.setVisibility(View.GONE);
     }
