@@ -203,28 +203,32 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         Log.d(TAG, "setupGridView: directory chosen: " + selectedDirectory);
         final ArrayList<String> imgURLs = FileSearch.getFilePaths(selectedDirectory);
 
-        //set the grid column width
-        int gridWidth = getResources().getDisplayMetrics().widthPixels;
-        int imageWidth = gridWidth/NUM_GRID_COLUMNS;
-        gridView.setColumnWidth(imageWidth);
 
-        //use the grid adapter to adapter the images to gridview
-        GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, mAppend, imgURLs);
-        gridView.setAdapter(adapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: selected an image: " + imgURLs.get(position));
-                mSelectedImage = imgURLs.get(position);
-                editTextPath.setText(mSelectedImage);
-                System.out.println(mSelectedImage);
-                imageGridRelativeLayout.setVisibility(View.GONE);
-                Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
-                selectedImageView.setVisibility(View.VISIBLE);
-                selectedImageView.setImageURI(file);
-            }
-        });
+        if(!imgURLs.isEmpty()){
+            //set the grid column width
+            int gridWidth = getResources().getDisplayMetrics().widthPixels;
+            int imageWidth = gridWidth/NUM_GRID_COLUMNS;
+            gridView.setColumnWidth(imageWidth);
+            //use the grid adapter to adapter the images to gridview
+            GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, mAppend, imgURLs);
+            gridView.setAdapter(adapter);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d(TAG, "onItemClick: selected an image: " + imgURLs.get(position));
+                    mSelectedImage = imgURLs.get(position);
+                    editTextPath.setText(mSelectedImage);
+                    System.out.println(mSelectedImage);
+                    imageGridRelativeLayout.setVisibility(View.GONE);
+                    Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
+                    selectedImageView.setVisibility(View.VISIBLE);
+                    selectedImageView.setImageURI(file);
+                }
+            });
+
+        }
 
     }
 
