@@ -3,8 +3,10 @@ package com.edu.knowit.knowit;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,8 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 public class ProfleViewActivity extends AppCompatActivity {
 
@@ -28,13 +28,21 @@ public class ProfleViewActivity extends AppCompatActivity {
     private TextView user_name, user_email, user_phone, user_sliit_id;
     
     private Button mButton;
+
+    private Toolbar toolbar;
+    private ListView listView;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_profle_view);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         
         mFireBaseAuth = FirebaseAuth.getInstance();
         
