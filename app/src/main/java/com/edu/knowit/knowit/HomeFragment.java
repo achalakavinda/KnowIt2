@@ -56,6 +56,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
 
         listView=view.findViewById(R.id.paymentListView);
         spinner = view.findViewById(R.id.progressBarHome);
+        listView.setAdapter(adapter);
 
         dBox = new DialogBox();
 
@@ -126,14 +127,28 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                     dataModels.add(postSnapshot.getValue(HomeItemModel.class));
                 }
 
-                if(dataModels.size()!=0){
-                    adapter = new HomeListAdapter(dataModels,getContext());
+                if(dataModels.size()!=0)
+                {
+                    if(getActivity().getApplicationContext() == null)
+                    {
+                        spinner.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
                     listView.setAdapter(adapter);
                     spinner.setVisibility(View.GONE);
                 }else {
                     spinner.setVisibility(View.GONE);
                     dataModels= new ArrayList<>();
+                    if(getActivity().getApplicationContext() == null)
+                    {
+                        spinner.setVisibility(View.GONE);
+                        return;
+                    }
                     dBox.ViewDialogBox(view,"Empty","No post are added");
+                    adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
+                    listView.setAdapter(adapter);
                 }
             }
 

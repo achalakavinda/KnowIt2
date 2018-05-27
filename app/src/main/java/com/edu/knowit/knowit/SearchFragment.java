@@ -200,8 +200,23 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
                         dataModels.add(search);
                     }
 
-                    adapter = new SearchListAdapter(dataModels, getContext());
-                    listView.setAdapter(adapter);
+                    if(dataModels.size()!=0)
+                    {
+                        if(getActivity().getApplicationContext() == null)
+                        {
+                            return;
+                        }
+                        adapter = new SearchListAdapter(dataModels, getActivity().getApplicationContext());
+                        listView.setAdapter(adapter);
+                    }else{
+                        if(getActivity().getApplicationContext() == null)
+                        {
+                            return;
+                        }
+                        adapter = new SearchListAdapter(dataModels, getActivity().getApplicationContext());
+                        listView.setAdapter(adapter);
+                    }
+
                 }
 
                 @Override
