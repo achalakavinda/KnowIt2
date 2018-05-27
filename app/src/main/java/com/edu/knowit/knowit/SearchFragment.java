@@ -3,21 +3,20 @@ package com.edu.knowit.knowit;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.CoordinatorLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.edu.knowit.knowit.ListAdapters.SearchListAdapter;
-import com.edu.knowit.knowit.Models.HomeItemModel;
-import com.edu.knowit.knowit.Models.Post;
 import com.edu.knowit.knowit.Models.SearchItemModel;
 import com.edu.knowit.knowit.Util.FirebaseMethods;
 import com.edu.knowit.knowit.Util.StringValidator;
@@ -40,8 +39,6 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
     ListView listView;
     private View view;
     private SearchListAdapter adapter;
-    private CoordinatorLayout co_ordinated_layout_main_payment;
-    private ProgressBar spinner;
 
     private EditText searchText;
     private ImageButton searchBtn;
@@ -50,6 +47,9 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
 
     private FirebaseMethods firebaseMethods;
     private DatabaseReference ref;
+
+    private static final String[] paths = {"DCCN", "PS", "MIT"};
+    private Spinner spinner;
 
 
     public SearchFragment() {
@@ -64,8 +64,6 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         listView=view.findViewById(R.id.paymentListView);
-        spinner = view.findViewById(R.id.progressBarPayment);
-        spinner.setVisibility(View.GONE);
         searchText = view.findViewById(R.id.searchText);
         searchBtn = view.findViewById(R.id.search_button);
 
@@ -73,6 +71,14 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
 
         firebaseMethods = new FirebaseMethods(getActivity().getApplicationContext());
         ref = firebaseMethods.getPostRef();
+
+
+        spinner = (Spinner) view.findViewById(R.id.searchDropdown);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,paths);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         searchText.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence cs, int s, int b, int c) {
@@ -83,6 +89,21 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
             public void afterTextChanged(Editable editable) {}
             public void beforeTextChanged(CharSequence cs, int i, int j, int k) {}
         });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setSearchString(spinner.getSelectedItem().toString());
+                SearchString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         return view;
     }
     @Override
@@ -90,16 +111,11 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
         super.onStart();
         dataModels= new ArrayList<>();
 
-        co_ordinated_layout_main_payment = view.findViewById(R.id.co_ordinated_layout_main_payment);
-
-        dataModels= new ArrayList<>();
-
-
-        dataModels.add(new SearchItemModel());
+//
+//        dataModels.add(new SearchItemModel());
 
         adapter = new SearchListAdapter(dataModels,getActivity().getApplicationContext());
         listView.setAdapter(adapter);
-        spinner.setVisibility(View.GONE);
     }
 
     @Override
@@ -137,7 +153,6 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
                     dataModels= new ArrayList<>();
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                        SearchItemModel search = postSnapshot.getValue(SearchItemModel.class);
-                        Log.d(TAG,search.getDescription()+"\n");
                         dataModels.add(search);
                     }
 
