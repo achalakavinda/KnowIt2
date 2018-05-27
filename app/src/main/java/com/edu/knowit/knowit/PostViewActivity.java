@@ -138,6 +138,8 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         buttonReply.setOnClickListener(this);
         buttonDelete.setOnClickListener(this);
 
+        image.setOnClickListener(this);
+
 
 
         if(extractExtraFromBundle()){
@@ -172,6 +174,13 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
                 if(editableDelete){
                     destroyPost();
                 }
+                break;
+            case R.id.image:
+                Intent intent =new Intent(this,ImageZoomActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("image",info.image);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

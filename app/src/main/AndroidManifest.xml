@@ -30,7 +30,8 @@
         <activity android:name=".ProfleViewActivity" />
         <activity android:name=".ProfileDetailsActivity" />
         <activity android:name=".CameraActivity" />
-        <activity android:name=".PreviewActivity"></activity>
+        <activity android:name=".PreviewActivity" />
+        <activity android:name=".ImageZoomActivity"></activity>
     </application>
 
 </manifest>
