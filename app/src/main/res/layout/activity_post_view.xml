@@ -121,6 +121,17 @@
                      android:textColor="@color/colorFontPanel"
                      android:text="@string/q_a"/>
 
+                <Button
+                    android:id="@+id/delete"
+                    android:layout_marginTop="@dimen/top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:text="@string/delete_button"
+                    android:background="@color/Button_Delete"
+                    android:textColor="@color/colorFontPanel"/>
+
 
 
             </LinearLayout>

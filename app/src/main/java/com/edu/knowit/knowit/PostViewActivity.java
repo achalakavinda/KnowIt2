@@ -1,5 +1,6 @@
 package com.edu.knowit.knowit;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,10 +35,10 @@ import java.util.ArrayList;
 public class PostViewActivity extends AppCompatActivity implements View.OnClickListener{
     private String TAG="PostViewActivity";
 
-    private View view;
+    private Boolean editableDelete = false;
+
     private Intent intent;
     private Bundle extraBundle;
-    private User user;
 
     private ArrayList<CommentItemModel> dataModels;
 
@@ -52,6 +53,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private ImageView image;
     private TextView description;
     private Button buttonReply;
+    private Button buttonDelete;
     private EditText commentText;
 
 
@@ -63,11 +65,13 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonQandA;
 
     public static class info{
+        private static String my_uid;
         private static String  my_name;
         private static String my_url;
         public static  String id;
         public static  String post_id;
         public static  String author;
+        public static  String author_id;
         public static  String author_img;
         public static  String date;
         public static  String title;
@@ -105,6 +109,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView= (ListView) findViewById(R.id.commentlistview);
         imageButtonCloseToggle = (ImageButton) findViewById(R.id.commentListToggle);
+
         linearLayoutCommentLinearLayout = (RelativeLayout) findViewById(R.id.commentLinearLayout);
 
         txtId = (TextView) findViewById(R.id.id);
@@ -119,6 +124,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
 
         buttonQandA = (Button) findViewById(R.id.qAndAButton);
         buttonReply = (Button) findViewById(R.id.reply);
+        buttonDelete = (Button) findViewById(R.id.delete);
 
         commentText = (EditText) findViewById(R.id.commentText);
 
@@ -130,6 +136,7 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
         imageButtonCloseToggle.setOnClickListener(this);
         buttonQandA.setOnClickListener(this);
         buttonReply.setOnClickListener(this);
+        buttonDelete.setOnClickListener(this);
 
 
 
@@ -160,6 +167,12 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
             case R.id.reply:
                 pushComment();
                 break;
+
+            case R.id.delete:
+                if(editableDelete){
+                    destroyPost();
+                }
+                break;
         }
     }
 
@@ -178,6 +191,8 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
             info.image = extraBundle.getString("image");
             info.like = extraBundle.getString("like");
             info.title = extraBundle.getString("title");
+            info.author_id = extraBundle.getString("user_id");
+
 
             return true;
 
@@ -217,6 +232,10 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
                 System.out.println(user.getName());
                 info.my_name = user.getName();
                 info.my_url = user.getUrl();
+                info.my_uid = dataSnapshot.getKey();
+
+                System.out.println("check | "+ info.my_uid +" < --- >"+ info.author_id);
+                checkDelete();
             }
 
             @Override
@@ -224,6 +243,16 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+    }
+
+    public void checkDelete(){
+        if(info.my_uid.equals(info.author_id)){
+            editableDelete = true;
+            buttonDelete.setVisibility(View.VISIBLE);
+        }else{
+            editableDelete = false;
+            buttonDelete.setVisibility(View.GONE);
+        }
     }
 
     public void pushComment(){
@@ -246,6 +275,32 @@ public class PostViewActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(getApplication().getApplicationContext(),"Error ...",Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public void destroyPost(){
+        FirebaseMethods fm = new FirebaseMethods(this);
+        DatabaseReference ref = fm.createPost().child(info.post_id);
+        final DatabaseReference refCom = fm.createComment().child(info.post_id);
+        ref.removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+             destroyComments(refCom);
+             Log.d(TAG,"Destroy Post");
+             PostViewActivity.super.onBackPressed();
+            }
+        });
+    }
+
+    public void destroyComments(DatabaseReference reference){
+        PostViewActivity.super.onBackPressed();
+
+        reference.removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Log.d(TAG,"Destroy Comments");
+                PostViewActivity.super.onBackPressed();
+            }
+        });
     }
 
 

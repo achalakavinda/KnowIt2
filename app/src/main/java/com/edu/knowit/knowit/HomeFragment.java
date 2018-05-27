@@ -85,6 +85,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 bundle.putString("post_id",dataModels.get(position).getPost_id());
                 bundle.putString("author",dataModels.get(position).getAuthor());
                 bundle.putString("author_img",dataModels.get(position).getAuthor_img());
+                bundle.putString("user_id",dataModels.get(position).getUser_id());
                 bundle.putString("comment",dataModels.get(position).getComment());
                 bundle.putString("date",dataModels.get(position).getDate());
                 bundle.putString("description",dataModels.get(position).getDescription());

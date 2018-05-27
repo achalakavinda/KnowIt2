@@ -36,9 +36,10 @@
     <string name="DB_UserDetails">user_details_tab</string>
     <string name="dbname_user_photos">user_photos</string>
     <string name="rglabelcommfirmpassword">Comfirm Password</string>
-    <string name="q_a"><![CDATA[Q & A]]></string>
+    <string name="q_a">Post a Comment</string>
     <string name="post_title">Title</string>
     <string name="post_description">Description</string>
     <string name="btn_attach">Attach</string>
     <string name="btn_submit">Submit</string>
+    <string name="delete_button">Delete</string>
 </resources>
