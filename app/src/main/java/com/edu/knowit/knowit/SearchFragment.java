@@ -159,6 +159,7 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
                 bundle.putString("window",TAG);
                 bundle.putString("id",  dataModels.get(position).getId());
                 bundle.putString("post_id",dataModels.get(position).getPost_id());
+                bundle.putString("user_id",dataModels.get(position).getUser_id());
                 bundle.putString("author",dataModels.get(position).getAuthor());
                 bundle.putString("author_img",dataModels.get(position).getAuthor_img());
                 bundle.putString("comment",dataModels.get(position).getComment());

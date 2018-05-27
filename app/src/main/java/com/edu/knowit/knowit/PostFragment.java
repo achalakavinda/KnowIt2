@@ -80,6 +80,8 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     private EditText editTextPath;
     private ImageView selectedImageView;
     private ImageButton closeButton;
+    private ProgressBar uploadspinner;
+    private ImageView galleryImageView;
 
 
     // firebase image url path
@@ -133,6 +135,8 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         closeButton = (ImageButton) view.findViewById(R.id.close);
 
 
+
+
         postBtn.setOnClickListener(this);
         attachBtn.setOnClickListener(this);
         closeButton.setOnClickListener(this);
@@ -142,7 +146,10 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         editTextDesc = (EditText) view.findViewById(R.id.description);
         editTextPath = (EditText) view.findViewById(R.id.path);
 
+        uploadspinner = (ProgressBar) view.findViewById(R.id.uploadspinner);
+
         selectedImageView = (ImageView) view.findViewById(R.id.galleryImageView);
+        selectedImageView.setVisibility(View.GONE);
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,paths);
 
@@ -225,6 +232,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                     Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
                     selectedImageView.setVisibility(View.VISIBLE);
                     selectedImageView.setImageURI(file);
+
                 }
             });
 
@@ -299,6 +307,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     }
 
     private void uploadImage(String Key){
+        uploadspinner.setVisibility(View.VISIBLE);
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
         StorageReference ref = fm.getmStorageReference().child("images/"+fm.getUserID()+"/"+Key);
         Uri file = Uri.fromFile(new File(editTextPath.getText().toString().trim()));
@@ -309,21 +318,21 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                         Log.d(TAG,"upload success");
                         String url = taskSnapshot.getDownloadUrl().toString();
                         setUrl(url);
+
                         pushData(2);
+                        selectedImageView.setVisibility(View.GONE);
+                        uploadspinner.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
                         Log.d(TAG,"upload fail");
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                .getTotalByteCount());
-                        Log.d(TAG,String.valueOf(progress));
+                        uploadspinner.setVisibility(View.GONE);
+                        selectedImageView.setVisibility(View.GONE);
+
+                        new DialogBox().ViewDialogBox(view,"error!","file upload fail");
                     }
                 });
     }
@@ -363,9 +372,11 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     public void pushData(int key){
         FirebaseMethods fm = new FirebaseMethods(getActivity().getApplicationContext());
         DatabaseReference ref = fm.createPost();
+
         switch (key){
 
             case 1:
+                uploadspinner.setVisibility(View.VISIBLE);
                 DatabaseReference set = ref.push();
                 postID = set.getKey();
                 Post post = new Post(postID,postID,fm.getUserID(),user.getName(),user.getUrl(),fm.getTimestamp(),spinner.getSelectedItem().toString(),editTextTitle.getText().toString(),"",editTextDesc.getText().toString(),"0","0","0");
@@ -378,14 +389,16 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                         editTextDesc.setText("");
                         url ="";
                         editTextPath.setText("");
-                        new DialogBox().ViewDialogBox(view,"Success","successfully post to community");
+                        uploadspinner.setVisibility(View.GONE);
                     }
                 })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.d(TAG,e.getMessage());
+                                uploadspinner.setVisibility(View.GONE);
                                 new DialogBox().ViewDialogBox(view,"Error",e.getMessage());
+
                             }
                         });
 
@@ -395,10 +408,8 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
                 break;
             case 2:
-
                 ref = fm.createPost();
                 ref.child(postID).child("image").setValue(url);
-                selectedImageView.setVisibility(View.GONE);
 
                 break;
 

@@ -30,9 +30,19 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/post_image_size"
                     android:id="@+id/galleryImageView"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:background="@color/colorBackPanel"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:id="@+id/uploadspinner"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"/>
 
                 <Spinner
                     android:id="@+id/spinner"

@@ -81,7 +81,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 intent = new Intent(view.getContext(), PostViewActivity.class);
 
                 bundle = new Bundle();//create bundle object to pass values
-
+                bundle.putString("window",TAG);
                 bundle.putString("id",  dataModels.get(position).getId());
                 bundle.putString("post_id",dataModels.get(position).getPost_id());
                 bundle.putString("author",dataModels.get(position).getAuthor());
@@ -118,7 +118,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         spinner.setVisibility(View.VISIBLE);
 
 
-        ref.child("/post").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
+        ref.child("/post").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 spinner.setVisibility(View.VISIBLE);
