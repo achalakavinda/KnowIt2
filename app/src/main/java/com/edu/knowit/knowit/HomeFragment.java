@@ -127,7 +127,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 }
 
                 if(dataModels.size()!=0){
-                    adapter = new HomeListAdapter(dataModels,getActivity().getApplicationContext());
+                    adapter = new HomeListAdapter(dataModels,getContext());
                     listView.setAdapter(adapter);
                     spinner.setVisibility(View.GONE);
                 }else {
