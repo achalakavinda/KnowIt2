@@ -129,7 +129,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
 
                 if(dataModels.size()!=0)
                 {
-                    if(getActivity().getApplicationContext() == null)
+                    if(null == getActivity().getApplicationContext())
                     {
                         spinner.setVisibility(View.GONE);
                         return;
@@ -141,7 +141,7 @@ public class HomeFragment extends android.support.v4.app.Fragment{
                 }else {
                     spinner.setVisibility(View.GONE);
                     dataModels= new ArrayList<>();
-                    if(getActivity().getApplicationContext() == null)
+                    if(null == getActivity().getApplicationContext())
                     {
                         spinner.setVisibility(View.GONE);
                         return;
