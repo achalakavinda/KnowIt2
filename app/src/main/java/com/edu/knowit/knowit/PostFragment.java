@@ -248,11 +248,12 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
                 if(checkPermissionsArray(Permissions.PERMISSIONS)){
                 }else{
                     verifyPermissions(Permissions.PERMISSIONS);
-                        Init();
-                        imageGridRelativeLayout.setVisibility(View.VISIBLE);
+                    
                 }
-
-
+    
+                Init();
+                imageGridRelativeLayout.setVisibility(View.VISIBLE);
+                
 
                 break;
             case R.id.close:

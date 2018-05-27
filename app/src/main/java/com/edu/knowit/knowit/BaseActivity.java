@@ -151,6 +151,10 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
                 Log.d(TAG,"Sign Out Click");
                 signOut();
                 break;
+                
+            case R.id.camera_item:
+                startActivity(new Intent(this, CameraActivity.class));
+                
             default:
                 Log.d(TAG,"Nav Click");
         }

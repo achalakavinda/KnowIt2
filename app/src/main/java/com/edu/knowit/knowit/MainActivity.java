@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-
-
       @Override
     protected void onStart()
     {
