@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".BaseActivity" />
-        <activity android:name=".PostViewActivity"></activity>
+        <activity android:name=".PostViewActivity" />
+        <activity android:name=".ProfleViewActivity" />
+        <activity android:name=".ProfileDetailsActivity"></activity>
     </application>
 
 </manifest>

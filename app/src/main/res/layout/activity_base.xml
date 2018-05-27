@@ -17,8 +17,6 @@
             android:id="@+id/menuBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/Button_and_field_Colour"
-            app:titleTextColor="@color/colorFontPanel"
             app:theme="@style/ToolbarStyle"
             android:layout_gravity="center_vertical"
             android:elevation="6dp"
@@ -35,8 +33,8 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:background="@color/Button_and_field_Colour"
+            android:elevation="10dp"
+            android:background="@drawable/card"
             android:minHeight="?attr/actionBarSize"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>

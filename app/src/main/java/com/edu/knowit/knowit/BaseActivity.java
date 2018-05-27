@@ -106,9 +106,13 @@ public class BaseActivity extends AppCompatActivity implements  View.OnClickList
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
 
+            case R.id.profile_item:
+                startActivity(new Intent(this,ProfleViewActivity.class));
+                break;
             case R.id.log_out_item:
                 Log.d(TAG,"Sign Out Click");
                 signOut();
+                break;
             default:
                 Log.d(TAG,"Nav Click");
         }
