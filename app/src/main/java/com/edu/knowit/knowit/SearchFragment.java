@@ -1,6 +1,7 @@
 package com.edu.knowit.knowit;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -199,7 +200,7 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
                         dataModels.add(search);
                     }
 
-                    adapter = new SearchListAdapter(dataModels,getActivity().getApplicationContext());
+                    adapter = new SearchListAdapter(dataModels, getContext());
                     listView.setAdapter(adapter);
                 }
 
