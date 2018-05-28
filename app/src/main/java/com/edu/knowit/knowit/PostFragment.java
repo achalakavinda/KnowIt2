@@ -1,6 +1,7 @@
 package com.edu.knowit.knowit;
 
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -88,6 +89,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
     private String url;
     private String postID;
     private Boolean uploadImage;
+    private Button cameraButton;
 
     //data models
     public User user = null;
@@ -95,7 +97,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
 
     //variables
     private ArrayList<String>  directories;
-    private static final String[] paths = {"DCCN", "PS", "MIT"};
+    private static final String[] paths = {"DCCN", "PS", "MIT","CGM","OOP","ML","Other"};
     private String mAppend = "file:/";
     private String mSelectedImage;
 
@@ -133,6 +135,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         postBtn = (Button) view.findViewById(R.id.post);
         attachBtn = (Button) view.findViewById(R.id.attach);
         closeButton = (ImageButton) view.findViewById(R.id.close);
+        cameraButton = (Button) view.findViewById(R.id.cameraButton);
 
 
 
@@ -140,6 +143,7 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
         postBtn.setOnClickListener(this);
         attachBtn.setOnClickListener(this);
         closeButton.setOnClickListener(this);
+        cameraButton.setOnClickListener(this);
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
         editTextTitle = (EditText) view.findViewById(R.id.title);
@@ -271,6 +275,9 @@ public class PostFragment extends android.support.v4.app.Fragment implements Vie
             case R.id.close:
                 imageGridRelativeLayout.setVisibility(View.GONE);
                 break;
+
+            case R.id.cameraButton:
+                startActivity(new Intent(getContext(),CameraActivity.class));
             default:
                 break;
         }

@@ -51,7 +51,7 @@ public class SearchFragment extends android.support.v4.app.Fragment implements V
     private FirebaseMethods firebaseMethods;
     private DatabaseReference ref;
 
-    private static final String[] paths = {"DCCN", "PS", "MIT"};
+    private static final String[] paths = {"DCCN", "PS", "MIT","CGM","OOP","ML","Other"};
     private Spinner spinner;
 
     private Bundle bundle ;

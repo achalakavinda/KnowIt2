@@ -80,17 +80,20 @@ public class CameraActivity extends AppCompatActivity
 		
 		long callbackTime = System.currentTimeMillis();
 		
-		ResultHolder.dispose();
+//		ResultHolder.dispose();
 		
-		ResultHolder.setImage(jpeg);
-		
-		ResultHolder.setNativeCaptureSize(cameraView.getCaptureSize());
-		
-		ResultHolder.setTimeToCallback(callbackTime - System.currentTimeMillis());
-		
-		Intent intent = new Intent(this, PreviewActivity.class);
-		
-		this.startActivity(intent);
+//		ResultHolder.setImage(jpeg);
+//
+//		ResultHolder.setNativeCaptureSize(cameraView.getCaptureSize());
+//
+//		ResultHolder.setTimeToCallback(callbackTime - System.currentTimeMillis());
+//
+//		Intent intent = new Intent(this, PreviewActivity.class);
+//
+//		this.startActivity(intent);
+
+//		onBackPressed();
+//		finish();
 	}
 	
 	public void writeToFile(byte[] data, String fileName) throws IOException {
