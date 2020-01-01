@@ -153,6 +153,8 @@ public class RegisterFragment extends android.support.v4.app.Fragment implements
 
     private void register(String email,String password){
 
+
+
         Log.d(TAG,"Register Function call");
         registerProgressBar.setVisibility(View.VISIBLE);
 

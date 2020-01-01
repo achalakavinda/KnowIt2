@@ -95,7 +95,6 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:paddingRight="5dp"/>
-
         </LinearLayout>
     </LinearLayout>
 
